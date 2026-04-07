@@ -49,36 +49,25 @@
             </div>
           </article>
 
-          <article class="form-section" data-guarantee-classification>
-            <h4>Категория гарантии</h4>
-            <div class="choice-grid">
-              <button class="choice selected" type="button" data-g-category="Госзакупки 44-ФЗ">Госзакупки 44-ФЗ</button>
-              <button class="choice" type="button" data-g-category="Госзакупки 223-ФЗ">Госзакупки 223-ФЗ</button>
-              <button class="choice" type="button" data-g-category="Налоговая">Налоговая</button>
-              <button class="choice" type="button" data-g-category="Таможенная">Таможенная</button>
-              <button class="choice" type="button" data-g-category="Коммерческая">Коммерческая</button>
-              <button class="choice" type="button" data-g-category="Иное">Иное</button>
+          <article class="form-section">
+            <h4>Тип гарантии</h4>
+            <div class="choice-grid" data-toggle-group>
+              <button class="choice" type="button" data-toggle-item>ФНС</button>
+              <button class="choice" type="button" data-toggle-item>ФТС</button>
+              <button class="choice" type="button" data-toggle-item>44-ФЗ</button>
+              <button class="choice" type="button" data-toggle-item>223-ФЗ</button>
+              <button class="choice selected" type="button" data-toggle-item>Аренда</button>
+              <button class="choice" type="button" data-toggle-item>Исполнение контракта</button>
+              <button class="choice" type="button" data-toggle-item>Иное</button>
             </div>
-            <div class="field-grid one mt-12">
-              <div class="field">
-                <label>Вид гарантии</label>
-                <select data-g-view>
-                  <option>Тендерная гарантия</option>
-                  <option>Гарантия исполнения контракта</option>
-                  <option>Гарантия возврата аванса</option>
-                  <option>Гарантия исполнения гарантийных обязательств</option>
-                </select>
-              </div>
-            </div>
-            <p class="muted mt-8 mb-0 small" data-g-prefill>Категория и вид гарантии можно уточнить по выбранному сценарию.</p>
           </article>
 
           <article class="form-section">
-            <h4>Способ выдачи</h4>
+            <h4>Тип способа выдачи</h4>
             <div class="choice-grid" data-toggle-group><button class="choice selected" data-toggle-item>На бумаге</button><button class="choice" data-toggle-item>Электронно</button></div>
             <div class="field-grid one mt-12">
-              <div class="field"><label>Наименование договора</label><input value="Договор аренды №123" /></div>
-              <div class="field"><label>Адрес объекта обязательства</label><input value="Москва, Красная площадь, д. 1" /></div>
+              <div class="field"><label>Наименование договора аренды</label><input value="Договор №123" /></div>
+              <div class="field"><label>Адрес арендованной площади</label><input value="Красная площадь, д. 1" /></div>
             </div>
           </article>
 
