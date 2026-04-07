@@ -217,39 +217,39 @@
       const selected = guaranteeMatrix[state.guaranteeType] || guaranteeMatrix[defaultType];
       if (selected.simplified) {
         return {
-          text: 'Рекомендуемый маршрут: упрощённая гарантия',
-          hint: 'Система направляет в упрощённый сценарий оформления.',
+          text: 'Тип оформления: Упрощённая гарантия',
+          hint: '',
           href: '04b-liniya-form.html?mode=simplified',
           routeKind: 'simplified',
           showOrdinaryStep: false,
           badgeClass: 'green',
-          badgeText: 'Доступна упрощённая гарантия',
-          systemHint: 'Для выбранного вида доступен упрощённый маршрут.'
+          badgeText: 'Упрощённая',
+          systemHint: ''
         };
       }
 
       if (state.ordinaryFormat === 'Единоразовая гарантия') {
         return {
-          text: 'Рекомендуемый маршрут: обычная гарантия — единоразовая',
-          hint: 'Переход в сценарий единоразовой банковской гарантии.',
+          text: 'Тип оформления: Обычная — единоразовая',
+          hint: '',
           href: '04b-liniya-form.html?mode=single',
           routeKind: 'ordinary',
           showOrdinaryStep: true,
           badgeClass: 'orange',
-          badgeText: 'Упрощённая гарантия недоступна',
-          systemHint: 'Система направляет в обычный маршрут оформления.'
+          badgeText: 'Обычная',
+          systemHint: ''
         };
       }
 
       return {
-        text: 'Рекомендуемый маршрут: обычная гарантия — в рамках линии',
-        hint: 'Переход к оформлению гарантии в рамках действующей линии.',
+        text: 'Тип оформления: Обычная — в рамках линии',
+        hint: '',
         href: '04b-liniya-form.html?mode=line',
         routeKind: 'ordinary',
         showOrdinaryStep: true,
         badgeClass: 'orange',
-        badgeText: 'Упрощённая гарантия недоступна',
-        systemHint: 'Система направляет в обычный маршрут оформления.'
+        badgeText: 'Обычная',
+        systemHint: ''
       };
     }
 

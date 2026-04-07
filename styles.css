@@ -202,9 +202,7 @@ h3 {
 }
 
 .page-intro {
-  margin-top: 10px;
-  font-size: 18px;
-  color: #51565f;
+  display: none !important;
 }
 
 .row {
@@ -441,11 +439,30 @@ h3 {
 }
 
 .link-action {
-  color: #2f3642;
+  color: #1f2838;
   font-weight: 600;
   font-size: 13px;
-  display: inline-block;
-  margin-right: 10px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 28px;
+  padding: 4px 10px;
+  border-radius: 8px;
+  border: 1px solid #c8d1df;
+  background: #f6f8fb;
+  white-space: nowrap;
+  margin-right: 8px;
+  transition: background-color 0.15s ease, border-color 0.15s ease, color 0.15s ease;
+}
+
+.link-action:hover {
+  background: #edf1f7;
+  border-color: #aebad0;
+  color: #192131;
+}
+
+.table td .link-action:last-child {
+  margin-right: 0;
 }
 
 .quick-actions {
