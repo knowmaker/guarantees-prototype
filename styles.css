@@ -465,6 +465,53 @@ h3 {
   margin-right: 0;
 }
 
+/* Unified action controls in table cells */
+.table td .link-action,
+.table td .btn {
+  min-height: 28px;
+  padding: 4px 10px;
+  border-radius: 8px;
+  font-size: 13px;
+  font-weight: 600;
+  line-height: 1.2;
+  margin-right: 8px;
+  white-space: nowrap;
+}
+
+.table td a.btn-light,
+.table td button.btn-light {
+  border-color: #c8d1df;
+  background: #f6f8fb;
+  color: #1f2838;
+}
+
+.table td a.btn-light:hover {
+  background: #edf1f7;
+  border-color: #aebad0;
+  color: #192131;
+}
+
+.table td a.btn-red {
+  padding: 4px 10px;
+  border-color: #d82b1f;
+  background: var(--red);
+  color: #fff;
+}
+
+.table td a.btn-red:hover {
+  background: var(--red-dark);
+}
+
+.table td button.btn {
+  cursor: default;
+  pointer-events: none;
+}
+
+.table td .btn:last-child,
+.table td .link-action:last-child {
+  margin-right: 0;
+}
+
 .quick-actions {
   display: grid;
   grid-template-columns: repeat(5, 1fr);
