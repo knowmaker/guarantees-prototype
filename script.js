@@ -559,6 +559,7 @@
     function render() {
       const existing = document.getElementById(noticeId);
       if (isMobileView()) {
+        document.body.classList.add('mobile-desktop-locked');
         if (existing) return;
         const notice = document.createElement('div');
         notice.id = noticeId;
@@ -573,6 +574,7 @@
         return;
       }
 
+      document.body.classList.remove('mobile-desktop-locked');
       if (existing) existing.remove();
     }
 

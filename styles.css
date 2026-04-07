@@ -961,7 +961,7 @@ h3 {
   position: fixed;
   inset: 0;
   z-index: 5000;
-  background: rgba(22, 25, 31, 0.82);
+  background: #eef1f6;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -989,6 +989,10 @@ h3 {
   font-size: 15px;
   line-height: 1.45;
   color: #4a5362;
+}
+
+body.mobile-desktop-locked > *:not(#mobile-desktop-notice) {
+  display: none !important;
 }
 
 .demo-popup,
