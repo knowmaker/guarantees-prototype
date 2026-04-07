@@ -810,6 +810,10 @@ h3 {
   font-size: 12px;
 }
 
+.is-hidden {
+  display: none !important;
+}
+
 .mt-8 { margin-top: 8px; }
 .mt-12 { margin-top: 12px; }
 .mt-16 { margin-top: 16px; }

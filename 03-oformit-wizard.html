@@ -33,43 +33,47 @@
           </div>
 
           <article class="wizard-step" data-choice-scope>
-            <h4 class="step-title">Шаг 1. Для чего нужна гарантия?</h4>
+            <h4 class="step-title">Шаг 1. Выберите вид банковской гарантии</h4>
             <div class="choice-grid">
-              <button class="choice selected" data-key="purpose" data-choice="Для госзакупок">Для госзакупок</button>
-              <button class="choice" data-key="purpose" data-choice="Для исполнения контракта">Для исполнения контракта</button>
-              <button class="choice" data-key="purpose" data-choice="Для возврата аванса">Для возврата аванса</button>
-              <button class="choice" data-key="purpose" data-choice="Для аренды">Для аренды</button>
-              <button class="choice" data-key="purpose" data-choice="Для таможенных целей">Для таможенных целей</button>
-              <button class="choice" data-key="purpose" data-choice="Для налоговых целей">Для налоговых целей</button>
-              <button class="choice" data-key="purpose" data-choice="Для обеспечения платежей">Для обеспечения платежей</button>
-              <button class="choice" data-key="purpose" data-choice="Другое">Другое</button>
+              <button class="choice selected" data-key="guaranteeType" data-choice="Тендерная гарантия">Тендерная гарантия</button>
+              <button class="choice" data-key="guaranteeType" data-choice="Гарантия возврата аванса">Гарантия возврата аванса</button>
+              <button class="choice" data-key="guaranteeType" data-choice="Гарантия исполнения контракта">Гарантия исполнения контракта</button>
+              <button class="choice" data-key="guaranteeType" data-choice="Гарантия исполнения гарантийных обязательств">Гарантия исполнения гарантийных обязательств</button>
+              <button class="choice" data-key="guaranteeType" data-choice="Гарантия возмещения НДС/акциза">Гарантия возмещения НДС/акциза</button>
+              <button class="choice" data-key="guaranteeType" data-choice="Гарантия освобождения от уплаты акциза при экспорте">Освобождение от уплаты акциза при экспорте</button>
+              <button class="choice" data-key="guaranteeType" data-choice="Гарантия освобождения от уплаты авансовых платежей акциза">Освобождение от уплаты авансовых платежей акциза</button>
+              <button class="choice" data-key="guaranteeType" data-choice="Гарантия обеспечения платежей">Гарантия обеспечения платежей</button>
+              <button class="choice" data-key="guaranteeType" data-choice="Гарантия в пользу таможенных органов">Гарантия в пользу таможенных органов</button>
+              <button class="choice" data-key="guaranteeType" data-choice="Арендная гарантия">Арендная гарантия</button>
+              <button class="choice" data-key="guaranteeType" data-choice="Гарантия уплаты экологического сбора">Гарантия уплаты экологического сбора</button>
             </div>
           </article>
 
-          <article class="wizard-step" data-choice-scope>
-            <h4 class="step-title">Шаг 2. Есть ли действующая гарантийная линия?</h4>
-            <div class="choice-grid">
-              <button class="choice selected" data-key="line" data-choice="Да">Да</button>
-              <button class="choice" data-key="line" data-choice="Нет">Нет</button>
-              <button class="choice" data-key="line" data-choice="Не знаю">Не знаю</button>
+          <article class="wizard-step">
+            <h4 class="step-title">Шаг 2. Системное определение маршрута</h4>
+            <div class="card soft">
+              <div class="muted">Выбранный вид гарантии</div>
+              <strong data-selected-type>Тендерная гарантия</strong>
+              <div class="mt-8">
+                <span class="badge green" data-route-badge>Доступна упрощённая гарантия</span>
+              </div>
+              <p class="muted mt-8 mb-0" data-route-system-hint>Для выбранного вида доступен упрощённый маршрут.</p>
             </div>
           </article>
 
-          <article class="wizard-step" data-choice-scope>
-            <h4 class="step-title">Шаг 3. Как хотите оформить?</h4>
+          <article class="wizard-step is-hidden" data-choice-scope data-ordinary-step>
+            <h4 class="step-title">Шаг 3. Формат оформления в обычном маршруте</h4>
             <div class="choice-grid">
-              <button class="choice selected" data-key="mode" data-choice="Самостоятельно онлайн">Самостоятельно онлайн</button>
-              <button class="choice" data-key="mode" data-choice="Нужна помощь менеджера">Нужна помощь менеджера</button>
+              <button class="choice selected" data-key="ordinaryFormat" data-choice="В рамках гарантийной линии">В рамках гарантийной линии</button>
+              <button class="choice" data-key="ordinaryFormat" data-choice="Единоразовая гарантия">Единоразовая гарантия</button>
             </div>
           </article>
 
           <article class="recommend">
-            <strong data-route-text>Рекомендуемый маршрут: стандартная гарантия в рамках линии</strong>
-            <p class="muted mt-8 mb-0" data-route-hint>Создание заявления в привычной форме с выбранной линией.</p>
+            <strong data-route-text>Рекомендуемый маршрут: упрощённая гарантия</strong>
+            <p class="muted mt-8 mb-0" data-route-hint>Система направляет в упрощённый сценарий оформления.</p>
             <div class="filter-row mt-12">
-              <a class="btn btn-red" data-route-link href="04b-liniya-form.html">Продолжить по рекомендации</a>
-              <a class="btn btn-light" href="04a-uproschennaya.html">Упрощённая гарантия</a>
-              <a class="btn btn-light" href="04c-edinorazovaya.html">Единоразовая гарантия</a>
+              <a class="btn btn-red" data-route-link href="04a-uproschennaya.html">Продолжить по маршруту</a>
               <a class="btn btn-light" href="04d-assisted.html">Помощь менеджера</a>
             </div>
           </article>

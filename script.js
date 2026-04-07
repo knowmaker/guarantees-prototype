@@ -8,6 +8,25 @@
     return true;
   }
 
+  function getGuaranteeMatrix() {
+    // Маршрутная матрица прототипа:
+    // 1) выбор вида гарантии -> 2) системная проверка упрощённого маршрута
+    // 3) если недоступно упрощённо -> выбор формата обычной гарантии
+    return {
+      'Тендерная гарантия': { simplified: true, category: 'Госзакупки 44-ФЗ', view: 'Тендерная гарантия' },
+      'Гарантия возврата аванса': { simplified: true, category: 'Коммерческая', view: 'Гарантия возврата аванса' },
+      'Гарантия исполнения контракта': { simplified: true, category: 'Коммерческая', view: 'Гарантия исполнения контракта' },
+      'Гарантия исполнения гарантийных обязательств': { simplified: true, category: 'Коммерческая', view: 'Гарантия исполнения гарантийных обязательств' },
+      'Гарантия возмещения НДС/акциза': { simplified: false, category: 'Налоговая', view: 'Гарантия возмещения НДС/акциза' },
+      'Гарантия освобождения от уплаты акциза при экспорте': { simplified: false, category: 'Налоговая', view: 'Гарантия освобождения от уплаты акциза при экспорте' },
+      'Гарантия освобождения от уплаты авансовых платежей акциза': { simplified: false, category: 'Налоговая', view: 'Гарантия освобождения от уплаты авансовых платежей акциза' },
+      'Гарантия обеспечения платежей': { simplified: false, category: 'Коммерческая', view: 'Гарантия обеспечения платежей' },
+      'Гарантия в пользу таможенных органов': { simplified: false, category: 'Таможенная', view: 'Гарантия в пользу таможенных органов' },
+      'Арендная гарантия': { simplified: false, category: 'Коммерческая', view: 'Арендная гарантия' },
+      'Гарантия уплаты экологического сбора': { simplified: false, category: 'Налоговая', view: 'Гарантия уплаты экологического сбора' }
+    };
+  }
+
   function markElement(el, nav, marker) {
     if (!el || el.classList.contains('interactive-marker')) return;
     el.classList.add('interactive-marker');
@@ -131,56 +150,72 @@
     const wizard = document.querySelector('[data-wizard]');
     if (!wizard) return;
 
+    const guaranteeMatrix = getGuaranteeMatrix();
+    const defaultType = 'Тендерная гарантия';
     const state = {
-      purpose: 'Для госзакупок',
-      line: 'Да',
-      mode: 'Самостоятельно онлайн'
+      guaranteeType: defaultType,
+      ordinaryFormat: 'В рамках гарантийной линии'
     };
 
     const routeText = document.querySelector('[data-route-text]');
     const routeHint = document.querySelector('[data-route-hint]');
     const routeLink = document.querySelector('[data-route-link]');
-    const storageKey = 'guaranteeWizardPurpose';
+    const selectedType = document.querySelector('[data-selected-type]');
+    const routeBadge = document.querySelector('[data-route-badge]');
+    const routeSystemHint = document.querySelector('[data-route-system-hint]');
+    const ordinaryStep = document.querySelector('[data-ordinary-step]');
 
-    function persistPurpose() {
+    const storageTypeKey = 'guaranteeWizardType';
+    const storageRouteKey = 'guaranteeWizardRoute';
+    const storageFormatKey = 'guaranteeWizardOrdinaryFormat';
+
+    function persistSelection(routeKind) {
       try {
-        window.localStorage.setItem(storageKey, state.purpose);
+        window.localStorage.setItem(storageTypeKey, state.guaranteeType);
+        window.localStorage.setItem(storageRouteKey, routeKind);
+        window.localStorage.setItem(storageFormatKey, state.ordinaryFormat);
       } catch (_) {
         // ignore storage errors in static prototype
       }
     }
 
     function computeRoute() {
-      const { purpose, line, mode } = state;
-
-      if (mode === 'Нужна помощь менеджера') {
-        return {
-          text: 'Рекомендуемый маршрут: assisted-сценарий с менеджером',
-          hint: 'Следующий шаг: заявка на консультацию с менеджером.',
-          href: '04d-assisted.html'
-        };
-      }
-
-      if (purpose === 'Для госзакупок' && line !== 'Да') {
+      const selected = guaranteeMatrix[state.guaranteeType] || guaranteeMatrix[defaultType];
+      if (selected.simplified) {
         return {
           text: 'Рекомендуемый маршрут: упрощённая гарантия',
-          hint: 'Быстрый онлайн-сценарий для типовых госзакупок.',
-          href: '04a-uproschennaya.html'
+          hint: 'Система направляет в упрощённый сценарий оформления.',
+          href: '04a-uproschennaya.html',
+          routeKind: 'simplified',
+          showOrdinaryStep: false,
+          badgeClass: 'green',
+          badgeText: 'Доступна упрощённая гарантия',
+          systemHint: 'Для выбранного вида доступен упрощённый маршрут.'
         };
       }
 
-      if (line === 'Да') {
+      if (state.ordinaryFormat === 'Единоразовая гарантия') {
         return {
-          text: 'Рекомендуемый маршрут: стандартная гарантия в рамках линии',
-          hint: 'Создание заявления в привычной форме с выбранной линией.',
-          href: '04b-liniya-form.html'
+          text: 'Рекомендуемый маршрут: обычная гарантия — единоразовая',
+          hint: 'Переход в сценарий единоразовой банковской гарантии.',
+          href: '04c-edinorazovaya.html',
+          routeKind: 'ordinary',
+          showOrdinaryStep: true,
+          badgeClass: 'orange',
+          badgeText: 'Упрощённая гарантия недоступна',
+          systemHint: 'Система направляет в обычный маршрут оформления.'
         };
       }
 
       return {
-        text: 'Рекомендуемый маршрут: стандартная единоразовая гарантия',
-        hint: 'Разовый сценарий без действующей гарантийной линии.',
-        href: '04c-edinorazovaya.html'
+        text: 'Рекомендуемый маршрут: обычная гарантия — в рамках линии',
+        hint: 'Переход к оформлению гарантии в рамках действующей линии.',
+        href: '04b-liniya-form.html',
+        routeKind: 'ordinary',
+        showOrdinaryStep: true,
+        badgeClass: 'orange',
+        badgeText: 'Упрощённая гарантия недоступна',
+        systemHint: 'Система направляет в обычный маршрут оформления.'
       };
     }
 
@@ -189,7 +224,17 @@
       if (routeText) routeText.textContent = route.text;
       if (routeHint) routeHint.textContent = route.hint;
       if (routeLink) routeLink.setAttribute('href', route.href);
-      persistPurpose();
+      if (selectedType) selectedType.textContent = state.guaranteeType;
+      if (routeSystemHint) routeSystemHint.textContent = route.systemHint;
+      if (routeBadge) {
+        routeBadge.textContent = route.badgeText;
+        routeBadge.classList.remove('green', 'orange', 'gray', 'dark', 'red');
+        routeBadge.classList.add(route.badgeClass);
+      }
+      if (ordinaryStep) {
+        ordinaryStep.classList.toggle('is-hidden', !route.showOrdinaryStep);
+      }
+      persistSelection(route.routeKind);
     }
 
     wizard.addEventListener('click', (e) => {
@@ -212,7 +257,8 @@
     wizard.addEventListener('click', (e) => {
       const link = e.target.closest('a[href]');
       if (!link) return;
-      persistPurpose();
+      const route = computeRoute();
+      persistSelection(route.routeKind);
     });
 
     renderRoute();
@@ -225,7 +271,8 @@
     const categoryButtons = Array.from(scope.querySelectorAll('[data-g-category]'));
     const viewSelect = scope.querySelector('[data-g-view]');
     const hint = scope.querySelector('[data-g-prefill]');
-    const storageKey = 'guaranteeWizardPurpose';
+    const storageKey = 'guaranteeWizardType';
+    const guaranteeMatrix = getGuaranteeMatrix();
 
     if (!categoryButtons.length || !viewSelect) return;
 
@@ -263,17 +310,6 @@
       ]
     };
 
-    const purposeToPrefill = {
-      'Для госзакупок': { category: 'Госзакупки 44-ФЗ' },
-      'Для исполнения контракта': { category: 'Коммерческая', view: 'Гарантия исполнения контракта' },
-      'Для возврата аванса': { category: 'Коммерческая', view: 'Гарантия возврата аванса' },
-      'Для аренды': { category: 'Коммерческая', view: 'Арендная гарантия' },
-      'Для таможенных целей': { category: 'Таможенная', view: 'Гарантия в пользу таможенных органов' },
-      'Для налоговых целей': { category: 'Налоговая' },
-      'Для обеспечения платежей': { category: 'Коммерческая', view: 'Гарантия обеспечения платежей' },
-      'Другое': { category: 'Иное', view: 'Иное' }
-    };
-
     function setActiveCategory(category) {
       categoryButtons.forEach((btn) => {
         const isActive = btn.getAttribute('data-g-category') === category;
@@ -309,17 +345,17 @@
       });
     });
 
-    let selectedPurpose = '';
+    let selectedGuaranteeType = '';
     try {
-      selectedPurpose = window.localStorage.getItem(storageKey) || '';
+      selectedGuaranteeType = window.localStorage.getItem(storageKey) || '';
     } catch (_) {
-      selectedPurpose = '';
+      selectedGuaranteeType = '';
     }
 
-    if (selectedPurpose && purposeToPrefill[selectedPurpose]) {
-      const prefill = purposeToPrefill[selectedPurpose];
+    if (selectedGuaranteeType && guaranteeMatrix[selectedGuaranteeType]) {
+      const prefill = guaranteeMatrix[selectedGuaranteeType];
       applyCategory(prefill.category, prefill.view);
-      if (hint) hint.textContent = `Предзаполнено по шагу 1 мастера: «${selectedPurpose}».`;
+      if (hint) hint.textContent = `Предзаполнено по выбранному виду гарантии: «${selectedGuaranteeType}».`;
       return;
     }
 
