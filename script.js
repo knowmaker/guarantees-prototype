@@ -244,7 +244,7 @@
         return {
           text: 'Рекомендуемый маршрут: упрощённая гарантия',
           hint: 'Система направляет в упрощённый сценарий оформления.',
-          href: '04a-uproschennaya.html',
+          href: '04b-liniya-form.html?mode=simplified',
           routeKind: 'simplified',
           showOrdinaryStep: false,
           badgeClass: 'green',
@@ -257,7 +257,7 @@
         return {
           text: 'Рекомендуемый маршрут: обычная гарантия — единоразовая',
           hint: 'Переход в сценарий единоразовой банковской гарантии.',
-          href: '04c-edinorazovaya.html',
+          href: '04b-liniya-form.html?mode=single',
           routeKind: 'ordinary',
           showOrdinaryStep: true,
           badgeClass: 'orange',
@@ -269,7 +269,7 @@
       return {
         text: 'Рекомендуемый маршрут: обычная гарантия — в рамках линии',
         hint: 'Переход к оформлению гарантии в рамках действующей линии.',
-        href: '04b-liniya-form.html',
+        href: '04b-liniya-form.html?mode=line',
         routeKind: 'ordinary',
         showOrdinaryStep: true,
         badgeClass: 'orange',
@@ -423,6 +423,164 @@
     applyCategory(initialCategory);
   }
 
+  function setupSharedGuaranteeFormMode() {
+    const page = document.querySelector('[data-shared-guarantee-form]');
+    if (!page) return;
+
+    const params = new URLSearchParams(window.location.search || '');
+    const rawMode = (params.get('mode') || 'line').toLowerCase();
+    const mode = ['line', 'single', 'simplified'].includes(rawMode) ? rawMode : 'line';
+
+    const titleEl = page.querySelector('[data-form-page-title]');
+    const introEl = page.querySelector('[data-form-page-intro]');
+    const crumbEl = page.querySelector('[data-form-page-crumb]');
+    const navEl = page.querySelector('[data-form-nav-title]');
+    const lineSection = page.querySelector('[data-line-selection]');
+
+    const modeConfig = {
+      line: {
+        title: 'Гарантия в рамках линии',
+        intro: 'Выберите действующую линию и заполните заявление.',
+        crumb: 'В рамках линии',
+        nav: 'Гарантия в рамках линии',
+        showLineSelection: true
+      },
+      single: {
+        title: 'Единоразовая гарантия',
+        intro: 'Заполните заявление на выпуск единоразовой гарантии.',
+        crumb: 'Единоразовая гарантия',
+        nav: 'Единоразовая гарантия',
+        showLineSelection: false
+      },
+      simplified: {
+        title: 'Упрощённая гарантия',
+        intro: 'Заполните заявление на выпуск упрощённой гарантии.',
+        crumb: 'Упрощённая гарантия',
+        nav: 'Упрощённая гарантия',
+        showLineSelection: false
+      }
+    };
+
+    const cfg = modeConfig[mode];
+    if (!cfg) return;
+
+    if (titleEl) titleEl.textContent = cfg.title;
+    if (introEl) introEl.textContent = cfg.intro;
+    if (crumbEl) crumbEl.textContent = cfg.crumb;
+    if (navEl) navEl.textContent = cfg.nav;
+    if (lineSection) lineSection.classList.toggle('is-hidden', !cfg.showLineSelection);
+    if (cfg.title) document.title = cfg.title;
+  }
+
+  function setupGuaranteeCardContext() {
+    const page = document.querySelector('[data-guarantee-card]');
+    if (!page) return;
+
+    const params = new URLSearchParams(window.location.search || '');
+    const item = params.get('item');
+    if (!item) return;
+
+    const kind = (params.get('kind') || 'request').toLowerCase();
+    const program = (params.get('program') || 'line').toLowerCase();
+    const status = (params.get('status') || 'sign').toLowerCase();
+
+    const titleKind = kind === 'guarantee' ? 'Гарантия' : 'Заявка';
+    const fullTitle = `${titleKind} №${item}`;
+
+    const titleEl = page.querySelector('[data-card-title]');
+    const breadcrumbEl = page.querySelector('[data-card-breadcrumb]');
+    if (titleEl) titleEl.textContent = fullTitle;
+    if (breadcrumbEl) breadcrumbEl.textContent = fullTitle;
+    document.title = fullTitle;
+
+    const programEl = page.querySelector('[data-card-program]');
+    const typeIssueEl = page.querySelector('[data-card-type-issue]');
+
+    const programMap = {
+      line: 'В рамках гарантийной линии №RDBG01',
+      single: 'Единоразовая гарантия',
+      simplified: 'Упрощённая гарантия'
+    };
+
+    const typeIssueMap = {
+      line: 'Арендная гарантия, на бумаге',
+      single: 'Гарантия исполнения контракта, электронно',
+      simplified: 'Тендерная гарантия, электронно'
+    };
+
+    if (programEl) programEl.textContent = programMap[program] || programMap.line;
+    if (typeIssueEl) typeIssueEl.textContent = typeIssueMap[program] || typeIssueMap.line;
+
+    const statusBadgeEl = page.querySelector('[data-card-status-badge]');
+    const statusNoteEl = page.querySelector('[data-card-status-note]');
+
+    const statusMap = {
+      active: {
+        text: 'Действует',
+        badgeClass: 'green',
+        note: 'Гарантия активна. Срок действия до 24.02.2027.'
+      },
+      sign: {
+        text: 'На подпись',
+        badgeClass: 'orange',
+        note: 'Срок подписания: до 08.04.2026 18:00 (МСК)'
+      },
+      docs: {
+        text: 'Требуются документы',
+        badgeClass: 'red',
+        note: 'Требуется дозагрузить документы для продолжения обработки.'
+      },
+      draft: {
+        text: 'Черновик',
+        badgeClass: 'gray',
+        note: 'Черновик доступен для редактирования.'
+      }
+    };
+
+    const statusCfg = statusMap[status] || statusMap.sign;
+    if (statusBadgeEl) {
+      statusBadgeEl.textContent = statusCfg.text;
+      statusBadgeEl.classList.remove('green', 'orange', 'gray', 'dark', 'red');
+      statusBadgeEl.classList.add(statusCfg.badgeClass);
+    }
+    if (statusNoteEl) statusNoteEl.textContent = statusCfg.note;
+  }
+
+  function setupDesktopOnlyNotice() {
+    const noticeId = 'mobile-desktop-notice';
+
+    function isMobileView() {
+      const ua = navigator.userAgent || '';
+      const isMobileUa = /Android|iPhone|iPad|iPod|Windows Phone|webOS|BlackBerry|Opera Mini/i.test(ua);
+      const isSmallViewport = window.matchMedia('(max-width: 980px)').matches;
+      return isMobileUa || isSmallViewport;
+    }
+
+    function render() {
+      const existing = document.getElementById(noticeId);
+      if (isMobileView()) {
+        if (existing) return;
+        const notice = document.createElement('div');
+        notice.id = noticeId;
+        notice.className = 'mobile-desktop-notice';
+        notice.innerHTML = [
+          '<div class="mobile-desktop-notice-card">',
+          '<h2 class="mobile-desktop-notice-title">Просмотр ограничен на мобильном устройстве</h2>',
+          '<p class="mobile-desktop-notice-text">Воспользуйтесь персональным компьютером для просмотра прототипа.</p>',
+          '</div>'
+        ].join('');
+        document.body.appendChild(notice);
+        return;
+      }
+
+      if (existing) existing.remove();
+    }
+
+    render();
+    window.addEventListener('resize', render);
+    window.addEventListener('orientationchange', render);
+  }
+
   setupRowLinks();
   setupCardLinks();
   setupPillLinks();
@@ -431,5 +589,8 @@
   setupDemoHints();
   setupWizard();
   setupGuaranteeClassification();
+  setupSharedGuaranteeFormMode();
+  setupGuaranteeCardContext();
+  setupDesktopOnlyNotice();
   markInteractive();
 })();

@@ -957,6 +957,40 @@ h3 {
   color: #57606f;
 }
 
+.mobile-desktop-notice {
+  position: fixed;
+  inset: 0;
+  z-index: 5000;
+  background: rgba(22, 25, 31, 0.82);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 24px;
+}
+
+.mobile-desktop-notice-card {
+  width: min(520px, 100%);
+  border: 1px solid #ef3124;
+  border-radius: 14px;
+  background: #fff;
+  box-shadow: 0 18px 38px rgba(0, 0, 0, 0.28);
+  padding: 22px 20px;
+}
+
+.mobile-desktop-notice-title {
+  margin: 0;
+  font-size: 22px;
+  line-height: 1.2;
+  color: #1d222c;
+}
+
+.mobile-desktop-notice-text {
+  margin: 10px 0 0;
+  font-size: 15px;
+  line-height: 1.45;
+  color: #4a5362;
+}
+
 .demo-popup,
 .demo-hint,
 .demo-source {
