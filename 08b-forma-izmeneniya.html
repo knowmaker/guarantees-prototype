@@ -6,7 +6,7 @@
   <title>Экран 08B — Форма изменения гарантии</title>
   <link rel="stylesheet" href="styles.css" />
 </head>
-<body data-demo-source="Раздел Изменение гарантии Альфа-кредит">
+<body data-demo-source="Раздел Изменение гарантии Альфа-кредит" data-change-form>
   <div class="app-shell">
     <aside class="sidebar">
       <div class="logo"><span class="logo-badge">A</span> Альфа-Бизнес</div>
@@ -24,22 +24,22 @@
           <a href="index.html">Все сервисы</a><span>›</span>
           <a href="02-garantii-hub.html">Гарантии</a><span>›</span>
           <a href="08-izmenit-garantiyu.html">Изменить гарантию</a><span>›</span>
-          <span>Форма изменения</span>
+          <span data-change-crumb>Форма изменения</span>
         </div>
         <a class="back-link" href="08-izmenit-garantiyu.html">← Назад к списку изменений</a>
-        <h1>Форма изменения гарантии</h1>
-        <p class="page-intro">Заявление №0381 по гарантии RDBG0105.</p>
+        <h1 data-change-title>Форма изменения гарантии</h1>
+        <p class="page-intro" data-change-intro>Заявление №0381 по гарантии RDBG0105.</p>
 
         <section class="section form-shell">
           <article class="form-section">
             <h4>Текущие параметры гарантии</h4>
             <div class="field-grid two">
-              <div class="field"><label>Номер гарантии</label><input value="RDBG0105" /></div>
-              <div class="field"><label>Бенефициар</label><input value="ООО «ТИТАН»" /></div>
+              <div class="field"><label>Номер гарантии</label><input value="RDBG0105" data-change-guarantee /></div>
+              <div class="field"><label>Бенефициар</label><input value="ООО «ТИТАН»" data-change-beneficiary /></div>
             </div>
             <div class="field-grid two mt-12">
-              <div class="field"><label>Текущая дата окончания</label><input value="24.12.2026" /></div>
-              <div class="field"><label>Текущая сумма</label><input value="6 100 000,00 ₽" /></div>
+              <div class="field"><label>Текущая дата окончания</label><input value="24.12.2026" data-change-current-end /></div>
+              <div class="field"><label>Текущая сумма</label><input value="6 100 000,00 ₽" data-change-current-sum /></div>
             </div>
           </article>
 
@@ -48,21 +48,21 @@
             <div class="field-grid two">
               <div class="field">
                 <label>Тип изменения</label>
-                <select><option>Продление срока действия</option><option>Изменение суммы</option><option>Изменение бенефициара</option></select>
+                <select data-change-type><option>Продление срока действия</option><option>Изменение суммы</option><option>Изменение бенефициара</option></select>
               </div>
               <div class="field">
                 <label>Новая дата окончания</label>
-                <input value="24.12.2027" />
+                <input value="24.12.2027" data-change-new-end />
               </div>
             </div>
             <div class="field-grid two mt-12">
-              <div class="field"><label>Новая сумма (если меняется)</label><input value="6 100 000,00 ₽" /></div>
-              <div class="field"><label>Дата вступления изменения</label><input value="10.04.2026" /></div>
+              <div class="field"><label>Новая сумма (если меняется)</label><input value="6 100 000,00 ₽" data-change-new-sum /></div>
+              <div class="field"><label>Дата вступления изменения</label><input value="10.04.2026" data-change-effective-date /></div>
             </div>
             <div class="field-grid one mt-12">
               <div class="field">
                 <label>Обоснование</label>
-                <textarea>Продление срока исполнения обязательств по договору аренды.</textarea>
+                <textarea data-change-reason>Продление срока исполнения обязательств по договору аренды.</textarea>
               </div>
             </div>
           </article>
@@ -72,7 +72,7 @@
             <div class="field-grid one">
               <div class="field">
                 <label>Приложения</label>
-                <input value="доп_соглашение.pdf, письмо_бенефициара.pdf" />
+                <input value="доп_соглашение.pdf, письмо_бенефициара.pdf" data-change-docs />
               </div>
             </div>
           </article>
@@ -80,7 +80,7 @@
           <div class="filter-row mt-16">
             <a class="btn btn-red" href="07-dokumenty-podpis.html">Отправить на подпись</a>
             <button class="btn btn-light">Сохранить черновик</button>
-            <a class="btn btn-light" href="06-kartochka-garantii.html">К карточке гарантии</a>
+            <a class="btn btn-light" href="06-kartochka-garantii.html?item=RDBG0105&amp;kind=guarantee&amp;program=line&amp;status=active" data-change-card-link>К карточке гарантии</a>
           </div>
         </section>
       </div>

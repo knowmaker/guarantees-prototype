@@ -477,24 +477,105 @@
     if (!page) return;
 
     const params = new URLSearchParams(window.location.search || '');
-    const item = params.get('item');
-    if (!item) return;
+    const defaultItem = 'RDBG-24017';
+    const item = params.get('item') || defaultItem;
 
-    const kind = (params.get('kind') || 'request').toLowerCase();
-    const program = (params.get('program') || 'line').toLowerCase();
-    const status = (params.get('status') || 'sign').toLowerCase();
+    const records = {
+      'RDBG0105': {
+        kind: 'guarantee',
+        meta: '№ 0105 • R006',
+        typeIssue: 'Арендная гарантия, на бумаге',
+        program: 'line',
+        beneficiary: 'ООО «МЕГА»',
+        sum: '2 345 678,00 ₽',
+        issueDate: '22.01.2026',
+        startDate: '22.01.2026',
+        endDate: '21.01.2027',
+        term: '365 дней',
+        status: 'active'
+      },
+      'RDBG-24017': {
+        kind: 'request',
+        meta: '№ 24017 • R006',
+        typeIssue: 'Арендная гарантия, на бумаге',
+        program: 'line',
+        beneficiary: 'АО «Горизонт»',
+        sum: '6 100 000,00 ₽',
+        issueDate: '05.04.2026',
+        startDate: '06.04.2026',
+        endDate: '24.12.2026',
+        term: '263 дня',
+        status: 'sign'
+      },
+      'RDBG-23988': {
+        kind: 'request',
+        meta: '№ 23988 • R007',
+        typeIssue: 'Гарантия исполнения контракта, электронно',
+        program: 'single',
+        beneficiary: 'ПАО «Лидер»',
+        sum: '100 500,00 ₽',
+        issueDate: '02.04.2026',
+        startDate: '03.04.2026',
+        endDate: '31.10.2026',
+        term: '212 дней',
+        status: 'docs'
+      },
+      'RDBG0094': {
+        kind: 'request',
+        meta: '№ 0378 • R005',
+        typeIssue: 'Гарантия исполнения контракта, на бумаге',
+        program: 'line',
+        beneficiary: 'ООО «ТИТАН»',
+        sum: '4 980 000,00 ₽',
+        issueDate: '03.09.2025',
+        startDate: '03.09.2025',
+        endDate: '03.09.2026',
+        term: '365 дней',
+        status: 'rejected'
+      },
+      'RDBG0089': {
+        kind: 'request',
+        meta: '№ 0374 • R005',
+        typeIssue: 'Гарантия исполнения контракта, на бумаге',
+        program: 'line',
+        beneficiary: 'ООО «ТИТАН»',
+        sum: '4 280 000,00 ₽',
+        issueDate: '21.07.2025',
+        startDate: '22.07.2025',
+        endDate: '21.07.2026',
+        term: '365 дней',
+        status: 'sign'
+      }
+    };
+
+    const base = records[item] || records[defaultItem];
+    const kind = (params.get('kind') || base.kind || 'request').toLowerCase();
+    const program = (params.get('program') || base.program || 'line').toLowerCase();
+    const status = (params.get('status') || base.status || 'sign').toLowerCase();
 
     const titleKind = kind === 'guarantee' ? 'Гарантия' : 'Заявка';
     const fullTitle = `${titleKind} №${item}`;
 
     const titleEl = page.querySelector('[data-card-title]');
     const breadcrumbEl = page.querySelector('[data-card-breadcrumb]');
+    const metaEl = page.querySelector('[data-card-meta]');
     if (titleEl) titleEl.textContent = fullTitle;
     if (breadcrumbEl) breadcrumbEl.textContent = fullTitle;
+    if (metaEl) metaEl.textContent = base.meta || '';
     document.title = fullTitle;
 
     const programEl = page.querySelector('[data-card-program]');
     const typeIssueEl = page.querySelector('[data-card-type-issue]');
+    const beneficiaryEl = page.querySelector('[data-card-beneficiary]');
+    const sumEl = page.querySelector('[data-card-sum]');
+    const issueDateEl = page.querySelector('[data-card-date-issue]');
+    const startDateEl = page.querySelector('[data-card-date-start]');
+    const endDateEl = page.querySelector('[data-card-date-end]');
+    const termEl = page.querySelector('[data-card-term]');
+    const actionTitleEl = page.querySelector('[data-card-action-title]');
+    const docsTbody = page.querySelector('[data-card-sign-docs]');
+    const primaryActionEl = page.querySelector('[data-card-primary-action]');
+    const signLinkEl = page.querySelector('[data-card-sign-link]');
 
     const programMap = {
       line: 'В рамках гарантийной линии №RDBG01',
@@ -508,8 +589,14 @@
       simplified: 'Тендерная гарантия, электронно'
     };
 
-    if (programEl) programEl.textContent = programMap[program] || programMap.line;
-    if (typeIssueEl) typeIssueEl.textContent = typeIssueMap[program] || typeIssueMap.line;
+    if (programEl) programEl.textContent = base.programText || programMap[program] || programMap.line;
+    if (typeIssueEl) typeIssueEl.textContent = base.typeIssue || typeIssueMap[program] || typeIssueMap.line;
+    if (beneficiaryEl) beneficiaryEl.textContent = base.beneficiary || '—';
+    if (sumEl) sumEl.textContent = base.sum || '—';
+    if (issueDateEl) issueDateEl.textContent = base.issueDate || '—';
+    if (startDateEl) startDateEl.textContent = base.startDate || '—';
+    if (endDateEl) endDateEl.textContent = base.endDate || '—';
+    if (termEl) termEl.textContent = base.term || '—';
 
     const statusBadgeEl = page.querySelector('[data-card-status-badge]');
     const statusNoteEl = page.querySelector('[data-card-status-note]');
@@ -534,6 +621,11 @@
         text: 'Черновик',
         badgeClass: 'gray',
         note: 'Черновик доступен для редактирования.'
+      },
+      rejected: {
+        text: 'Отклонено',
+        badgeClass: 'red',
+        note: 'Банк отклонил заявку. Ознакомьтесь с причиной в истории объекта.'
       }
     };
 
@@ -544,6 +636,233 @@
       statusBadgeEl.classList.add(statusCfg.badgeClass);
     }
     if (statusNoteEl) statusNoteEl.textContent = statusCfg.note;
+
+    const signStepHref = `07b-podpis-step.html?item=${encodeURIComponent(item)}&doc=${encodeURIComponent('Заявление на гарантию.docx')}&status=sign&program=${encodeURIComponent(program)}&kind=${encodeURIComponent(kind)}`;
+    if (signLinkEl) signLinkEl.setAttribute('href', signStepHref);
+
+    if (actionTitleEl) {
+      actionTitleEl.textContent = status === 'sign' ? 'Проверьте и подпишите документы' : 'Документы по объекту';
+    }
+
+    if (docsTbody) {
+      const docsByStatus = {
+        sign: [
+          `<tr><td>Заявление на гарантию.docx</td><td>DOCX</td><td><span class="badge orange">На подпись</span></td><td><a class="link-action" href="${signStepHref}">Подписать</a></td></tr>`,
+          '<tr><td>Проект гарантии.pdf</td><td>PDF</td><td><span class="badge orange">На подпись</span></td><td><button class="btn btn-light">Скачать</button></td></tr>'
+        ],
+        active: [
+          '<tr><td>Текст выпущенной гарантии.pdf</td><td>PDF</td><td><span class="badge green">Подписан</span></td><td><button class="btn btn-light">Скачать</button></td></tr>',
+          '<tr><td>Заявление на выпуск.docx</td><td>DOCX</td><td><span class="badge green">Подписан</span></td><td><button class="btn btn-light">Скачать</button></td></tr>'
+        ],
+        docs: [
+          '<tr><td>Письмо-запрос банка.pdf</td><td>PDF</td><td><span class="badge red">Требуются документы</span></td><td><button class="btn btn-light">Скачать</button></td></tr>',
+          '<tr><td>Перечень недостающих файлов.docx</td><td>DOCX</td><td><span class="badge red">Требуются документы</span></td><td><button class="btn btn-light">Скачать</button></td></tr>'
+        ],
+        rejected: [
+          '<tr><td>Заключение банка.pdf</td><td>PDF</td><td><span class="badge red">Отклонено</span></td><td><button class="btn btn-light">Скачать</button></td></tr>'
+        ],
+        draft: [
+          '<tr><td>Черновик заявления.docx</td><td>DOCX</td><td><span class="badge gray">Черновик</span></td><td><button class="btn btn-light">Скачать</button></td></tr>'
+        ]
+      };
+      docsTbody.innerHTML = (docsByStatus[status] || docsByStatus.sign).join('');
+    }
+
+    if (primaryActionEl) {
+      const primaryByStatus = {
+        sign: { label: 'Подписать', href: signStepHref },
+        active: { label: 'К документам', href: '07-dokumenty-podpis.html' },
+        docs: { label: 'Продолжить', href: `04b-liniya-form.html?mode=${program === 'single' ? 'single' : (program === 'simplified' ? 'simplified' : 'line')}` },
+        draft: { label: 'Продолжить', href: `04b-liniya-form.html?mode=${program === 'single' ? 'single' : (program === 'simplified' ? 'simplified' : 'line')}` },
+        rejected: { label: 'Создать новую заявку', href: '03-oformit-wizard.html' }
+      };
+      const primaryCfg = primaryByStatus[status] || primaryByStatus.sign;
+      primaryActionEl.textContent = primaryCfg.label;
+      primaryActionEl.setAttribute('href', primaryCfg.href);
+    }
+  }
+
+  function setupIncomingGuaranteeCardContext() {
+    const page = document.querySelector('[data-incoming-card]');
+    if (!page) return;
+
+    const params = new URLSearchParams(window.location.search || '');
+    const item = params.get('item') || 'OSV-2024-091';
+    const records = {
+      'OSV-2024-091': {
+        principal: 'ООО «ССВ»',
+        beneficiary: 'ООО «Ромашка»',
+        bankNumber: 'OSV-2024-091 / R-IN-88712',
+        sum: '5 844 655,20 ₽',
+        start: '18.10.2024',
+        end: '11.12.2026',
+        type: 'Гарантия исполнения контракта',
+        status: 'active',
+        docs: [
+          '<tr><td>Текст гарантии.pdf</td><td>18.10.2024</td><td><button class="btn btn-light">Скачать</button></td></tr>',
+          '<tr><td>Уведомление об авизовании.pdf</td><td>18.10.2024</td><td><button class="btn btn-light">Скачать</button></td></tr>'
+        ]
+      },
+      'OSV-2025-014': {
+        principal: 'АО «Стройгарант»',
+        beneficiary: 'ООО «Ромашка»',
+        bankNumber: 'OSV-2025-014 / R-IN-91244',
+        sum: '12 300 000,00 ₽',
+        start: '02.02.2025',
+        end: '14.01.2027',
+        type: 'Гарантия обеспечения платежей',
+        status: 'active',
+        docs: [
+          '<tr><td>Текст гарантии.pdf</td><td>02.02.2025</td><td><button class="btn btn-light">Скачать</button></td></tr>',
+          '<tr><td>Реестр авизования.pdf</td><td>03.02.2025</td><td><button class="btn btn-light">Скачать</button></td></tr>'
+        ]
+      }
+    };
+
+    const data = records[item] || records['OSV-2024-091'];
+    const statusMap = {
+      active: { text: 'Действует', cls: 'green' },
+      expired: { text: 'Завершена', cls: 'gray' }
+    };
+    const statusCfg = statusMap[data.status] || statusMap.active;
+
+    const titleText = `Входящая гарантия ${item}`;
+    const titleEl = page.querySelector('[data-incoming-title]');
+    const breadcrumbEl = page.querySelector('[data-incoming-breadcrumb]');
+    const statusEl = page.querySelector('[data-incoming-status]');
+    const principalEl = page.querySelector('[data-incoming-principal]');
+    const beneficiaryEl = page.querySelector('[data-incoming-beneficiary]');
+    const bankNumberEl = page.querySelector('[data-incoming-bank-number]');
+    const sumEl = page.querySelector('[data-incoming-sum]');
+    const startEl = page.querySelector('[data-incoming-start]');
+    const endEl = page.querySelector('[data-incoming-end]');
+    const typeEl = page.querySelector('[data-incoming-type]');
+    const docsEl = page.querySelector('[data-incoming-docs]');
+
+    if (titleEl) titleEl.textContent = titleText;
+    if (breadcrumbEl) breadcrumbEl.textContent = item;
+    if (principalEl) principalEl.textContent = data.principal;
+    if (beneficiaryEl) beneficiaryEl.textContent = data.beneficiary;
+    if (bankNumberEl) bankNumberEl.textContent = data.bankNumber;
+    if (sumEl) sumEl.textContent = data.sum;
+    if (startEl) startEl.textContent = data.start;
+    if (endEl) endEl.textContent = data.end;
+    if (typeEl) typeEl.textContent = data.type;
+    if (docsEl) docsEl.innerHTML = data.docs.join('');
+    if (statusEl) {
+      statusEl.textContent = statusCfg.text;
+      statusEl.classList.remove('green', 'orange', 'gray', 'dark', 'red');
+      statusEl.classList.add(statusCfg.cls);
+    }
+    document.title = titleText;
+  }
+
+  function setupChangeFormContext() {
+    const page = document.querySelector('[data-change-form]');
+    if (!page) return;
+
+    const params = new URLSearchParams(window.location.search || '');
+    const stmt = (params.get('stmt') || '0381').replace(/[^0-9]/g, '') || '0381';
+    const records = {
+      '0381': {
+        guarantee: 'RDBG0105',
+        beneficiary: 'ООО «ТИТАН»',
+        currentEnd: '24.12.2026',
+        currentSum: '6 100 000,00 ₽',
+        changeType: 'Продление срока действия',
+        newEnd: '24.12.2027',
+        newSum: '6 100 000,00 ₽',
+        effectiveDate: '10.04.2026',
+        reason: 'Продление срока исполнения обязательств по договору аренды.',
+        docs: 'доп_соглашение.pdf, письмо_бенефициара.pdf',
+        cardHref: '06-kartochka-garantii.html?item=RDBG0105&kind=guarantee&program=line&status=active'
+      },
+      '0374': {
+        guarantee: 'RDBG0089',
+        beneficiary: 'ООО «ТИТАН»',
+        currentEnd: '21.07.2026',
+        currentSum: '4 280 000,00 ₽',
+        changeType: 'Изменение суммы',
+        newEnd: '21.07.2026',
+        newSum: '4 600 000,00 ₽',
+        effectiveDate: '12.04.2026',
+        reason: 'Корректировка суммы обеспечения по дополнительному соглашению №1.',
+        docs: 'доп_соглашение_№1.pdf, письмо_на_изменение_суммы.pdf',
+        cardHref: '06-kartochka-garantii.html?item=RDBG0089&kind=request&program=line&status=sign'
+      }
+    };
+    const data = records[stmt] || records['0381'];
+
+    const introEl = page.querySelector('[data-change-intro]');
+    const crumbEl = page.querySelector('[data-change-crumb]');
+    const titleEl = page.querySelector('[data-change-title]');
+    const guaranteeEl = page.querySelector('[data-change-guarantee]');
+    const beneficiaryEl = page.querySelector('[data-change-beneficiary]');
+    const currentEndEl = page.querySelector('[data-change-current-end]');
+    const currentSumEl = page.querySelector('[data-change-current-sum]');
+    const typeEl = page.querySelector('[data-change-type]');
+    const newEndEl = page.querySelector('[data-change-new-end]');
+    const newSumEl = page.querySelector('[data-change-new-sum]');
+    const effDateEl = page.querySelector('[data-change-effective-date]');
+    const reasonEl = page.querySelector('[data-change-reason]');
+    const docsEl = page.querySelector('[data-change-docs]');
+    const cardLinkEl = page.querySelector('[data-change-card-link]');
+
+    const introText = `Заявление №${stmt} по гарантии ${data.guarantee}.`;
+    if (introEl) introEl.textContent = introText;
+    if (crumbEl) crumbEl.textContent = `Форма изменения №${stmt}`;
+    if (titleEl) titleEl.textContent = `Форма изменения гарантии №${stmt}`;
+    if (guaranteeEl) guaranteeEl.value = data.guarantee;
+    if (beneficiaryEl) beneficiaryEl.value = data.beneficiary;
+    if (currentEndEl) currentEndEl.value = data.currentEnd;
+    if (currentSumEl) currentSumEl.value = data.currentSum;
+    if (typeEl) typeEl.value = data.changeType;
+    if (newEndEl) newEndEl.value = data.newEnd;
+    if (newSumEl) newSumEl.value = data.newSum;
+    if (effDateEl) effDateEl.value = data.effectiveDate;
+    if (reasonEl) reasonEl.value = data.reason;
+    if (docsEl) docsEl.value = data.docs;
+    if (cardLinkEl) cardLinkEl.setAttribute('href', data.cardHref);
+  }
+
+  function setupSignStepContext() {
+    const page = document.querySelector('[data-sign-step]');
+    if (!page) return;
+
+    const params = new URLSearchParams(window.location.search || '');
+    const item = params.get('item') || 'RDBG-24017';
+    const kind = (params.get('kind') || 'request').toLowerCase();
+    const doc = params.get('doc') || 'Заявление на гарантию.docx';
+    const status = (params.get('status') || 'sign').toLowerCase();
+    const program = (params.get('program') || 'line').toLowerCase();
+
+    const statusMap = {
+      sign: { text: 'На подпись', cls: 'orange' },
+      approved: { text: 'Подписано', cls: 'green' },
+      waiting: { text: 'Ожидает согласования', cls: 'gray' }
+    };
+    const statusCfg = statusMap[status] || statusMap.sign;
+    const objectTitle = `${kind === 'guarantee' ? 'Гарантия' : 'Заявка'} №${item}`;
+    const cardHref = `06-kartochka-garantii.html?item=${encodeURIComponent(item)}&kind=${encodeURIComponent(kind)}&program=${encodeURIComponent(program)}&status=${encodeURIComponent(status === 'approved' ? 'active' : (status === 'waiting' ? 'draft' : 'sign'))}`;
+
+    const crumbEl = page.querySelector('[data-sign-crumb]');
+    const titleEl = page.querySelector('[data-sign-title]');
+    const statusEl = page.querySelector('[data-sign-status]');
+    const docEl = page.querySelector('[data-sign-doc-title]');
+    const objectEl = page.querySelector('[data-sign-object]');
+    const cardLinkEl = page.querySelector('[data-sign-card-link]');
+
+    if (crumbEl) crumbEl.textContent = `Подписание ${item}`;
+    if (titleEl) titleEl.textContent = `Подписание документа ${item}`;
+    if (statusEl) {
+      statusEl.textContent = statusCfg.text;
+      statusEl.classList.remove('green', 'orange', 'gray', 'dark', 'red');
+      statusEl.classList.add(statusCfg.cls);
+    }
+    if (docEl) docEl.textContent = doc;
+    if (objectEl) objectEl.textContent = `Связанный объект: ${objectTitle}`;
+    if (cardLinkEl) cardLinkEl.setAttribute('href', cardHref);
+    document.title = `Подписание документа ${item}`;
   }
 
   function setupDesktopOnlyNotice() {
@@ -593,6 +912,9 @@
   setupGuaranteeClassification();
   setupSharedGuaranteeFormMode();
   setupGuaranteeCardContext();
+  setupIncomingGuaranteeCardContext();
+  setupChangeFormContext();
+  setupSignStepContext();
   setupDesktopOnlyNotice();
   markInteractive();
 })();
