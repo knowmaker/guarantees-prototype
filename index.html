@@ -1,0 +1,115 @@
+﻿<!doctype html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Альфа-Бизнес — Все сервисы</title>
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+  <div class="app-shell">
+    <aside class="sidebar">
+      <div class="logo"><span class="logo-badge">A</span> Альфа-Бизнес</div>
+      <nav class="main-nav">
+        <a class="nav-item primary" href="#">Новый платёж</a>
+        <a class="nav-item" href="#">Лента операций</a>
+        <a class="nav-item" href="#">Платежи в работе</a>
+        <a class="nav-item" href="#">Импорт реестров</a>
+        <a class="nav-item" href="#">Выписка</a>
+        <a class="nav-item" href="#">Счета</a>
+        <a class="nav-item" href="#">Контрагенты</a>
+        <div class="nav-section">Мои сервисы</div>
+        <a class="nav-item active" href="index.html">Все сервисы</a>
+        <a class="nav-item" href="02-garantii-hub.html">Гарантии</a>
+        <a class="nav-item" href="#">Кредитные продукты</a>
+        <a class="nav-item" href="#">Справки</a>
+      </nav>
+    </aside>
+
+    <main class="main">
+      <div class="topbar">ООО «Ромашка»</div>
+      <div class="page page-wide">
+        <h1>Все сервисы и продукты</h1>
+        <section class="section demo-hint" data-demo-hint>
+          <span class="demo-hint-icon">i</span>
+          <div class="demo-hint-body">С чего начинать: откройте «Гарантии» в карточке каталога или в левом меню.</div>
+          <button type="button" class="demo-hint-close" data-hint-close>Скрыть</button>
+        </section>
+
+        <div class="tabs">
+          <a class="tab active" href="#">Продукты и услуги банка</a>
+          <a class="tab" href="#">Заявки</a>
+          <a class="tab" href="#">Мои продукты</a>
+        </div>
+
+        <section class="section">
+          <input class="search" type="text" value="" placeholder="Сервис или продукт" />
+          <div class="catalog-grid">
+            <article class="catalog-tile">
+              <div class="catalog-tile-top green">
+                <span class="badge dark">Рекомендуем</span>
+              </div>
+              <div class="catalog-tile-body">
+                <h4>Зарплатный проект</h4>
+                <p>Подключайте и экономьте ресурсы для бизнеса.</p>
+              </div>
+            </article>
+            <article class="catalog-tile">
+              <div class="catalog-tile-top">
+                <span class="badge dark">Рекомендуем</span>
+              </div>
+              <div class="catalog-tile-body">
+                <h4>Эквайринг и касса</h4>
+                <p>Принимайте платежи и управляйте оборудованием.</p>
+              </div>
+            </article>
+          </div>
+        </section>
+
+        <section class="section filter-row">
+          <span class="pill">Категория</span>
+          <span class="pill dark">Все</span>
+          <span class="pill">Мои сервисы</span>
+          <span class="pill">Для вас</span>
+          <span class="pill">Новое</span>
+        </section>
+
+        <section class="section service-grid">
+          <article class="service-card">
+            <h4>Кредитные продукты</h4>
+            <ul class="service-list">
+              <li><span>Кредитные продукты</span><span class="badge gray">для вас</span></li>
+              <li><strong>Банковская гарантия</strong><a class="btn-link" href="02-garantii-hub.html">Перейти</a></li>
+              <li><span>Лизинг автомобилей</span><span class="muted">→</span></li>
+              <li><span>Факторинг</span><span class="muted">→</span></li>
+              <li><span>Льготный кредит</span><span class="muted">→</span></li>
+            </ul>
+          </article>
+          <article class="service-card click-card" data-href="02-garantii-hub.html">
+            <h4>Гарантии</h4>
+            <ul class="service-list">
+              <li><strong>Единая точка входа в гарантии</strong><span class="badge red">новое</span></li>
+              <li><span>Оформить гарантию</span><a class="btn-link" href="03-oformit-wizard.html">Открыть</a></li>
+              <li><span>Мои гарантии и заявки</span><a class="btn-link" href="05-moi-garantii-zayavki.html">Открыть</a></li>
+              <li><span>Документы на подпись</span><a class="btn-link" href="07-dokumenty-podpis.html">Открыть</a></li>
+              <li><span>Входящие гарантии</span><a class="btn-link" href="09-vhodyashchie-garantii.html">Открыть</a></li>
+            </ul>
+          </article>
+          <article class="service-card">
+            <h4>Обслуживание бизнеса</h4>
+            <ul class="service-list">
+              <li><span>Нейроофис</span><span class="badge gray">новое</span></li>
+              <li><span>Справки</span><span class="muted">→</span></li>
+              <li><span>Входящие гарантии</span><span class="muted">→</span></li>
+              <li><span>Госзакупки</span><span class="muted">→</span></li>
+              <li><span>Счета на оплату</span><span class="muted">→</span></li>
+            </ul>
+          </article>
+        </section>
+
+      </div>
+    </main>
+  </div>
+  <script src="script.js"></script>
+</body>
+</html>

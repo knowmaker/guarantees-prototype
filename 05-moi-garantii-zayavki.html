@@ -1,0 +1,64 @@
+﻿<!doctype html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Мои гарантии и заявки</title>
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+  <div class="app-shell">
+    <aside class="sidebar">
+      <div class="logo"><span class="logo-badge">A</span> Альфа-Бизнес</div>
+      <nav class="main-nav">
+        <a class="nav-item" href="index.html">Все сервисы</a>
+        <a class="nav-item" href="02-garantii-hub.html">Гарантии</a>
+        <a class="nav-item active" href="05-moi-garantii-zayavki.html">Мои гарантии и заявки</a>
+        <a class="nav-item" href="07-dokumenty-podpis.html">Документы на подпись</a>
+        <a class="nav-item" href="08-izmenit-garantiyu.html">Изменить гарантию</a>
+        <a class="nav-item" href="09-vhodyashchie-garantii.html">Входящие гарантии</a>
+      </nav>
+    </aside>
+
+    <main class="main">
+      <div class="topbar">ООО «Ромашка»</div>
+      <div class="page page-wide">
+        <div class="crumbs"><a href="index.html">Все сервисы</a><span>›</span><a href="02-garantii-hub.html">Гарантии</a><span>›</span><span>Мои гарантии и заявки</span></div>
+        <a class="back-link" href="02-garantii-hub.html">← Назад в раздел «Гарантии»</a>
+        <h1>Мои гарантии и заявки</h1>
+        <p class="page-intro">Единый реестр объектов и следующих действий.</p>
+
+        <div class="tabs">
+          <a class="tab active" href="#">Все</a>
+          <a class="tab" href="#">Заявки</a>
+          <a class="tab" href="#">Выпущенные гарантии</a>
+          <a class="tab" href="#">На подпись</a>
+          <a class="tab" href="#">Черновики</a>
+          <a class="tab" href="#">Архив</a>
+        </div>
+
+        <section class="section">
+          <input class="search" type="text" placeholder="Поиск по номеру / ID / бенефициару" />
+          <div class="filter-row">
+            <span class="pill">Компания</span><span class="pill">Тип</span><span class="pill">Программа</span><span class="pill dark">Статус: действующие</span><span class="pill">Дата</span>
+          </div>
+          <div class="filter-row"><a class="btn btn-red" href="03-oformit-wizard.html">Новая гарантия</a><a class="btn btn-light" href="08-izmenit-garantiyu.html">Изменить гарантию</a></div>
+        </section>
+
+        <section class="section table-wrap">
+          <table class="table">
+            <thead><tr><th>Номер / ID</th><th>Тип</th><th>Программа</th><th>Бенефициар</th><th>Сумма</th><th>Дата</th><th>Статус</th><th>Следующее действие</th></tr></thead>
+            <tbody>
+              <tr class="click-row" data-href="06-kartochka-garantii.html"><td>RDBG0105</td><td>Гарантия</td><td>В рамках линии</td><td>ООО «МЕГА»</td><td class="sum">2 345 678,00 ₽</td><td>22.01.2026</td><td><span class="badge green">Действует</span></td><td><a class="link-action" href="06-kartochka-garantii.html">Открыть</a> <a class="link-action" href="08-izmenit-garantiyu.html">Изменить</a></td></tr>
+              <tr class="click-row" data-href="06-kartochka-garantii.html"><td>RDBG-24017</td><td>Заявка</td><td>В рамках линии</td><td>АО «Горизонт»</td><td class="sum">6 100 000,00 ₽</td><td>05.04.2026</td><td><span class="badge orange">На подпись</span></td><td><a class="link-action" href="07-dokumenty-podpis.html">Подписать</a> <a class="link-action" href="06-kartochka-garantii.html">Открыть</a></td></tr>
+              <tr class="click-row" data-href="06-kartochka-garantii.html"><td>RDBG-23988</td><td>Заявка</td><td>Единоразовая</td><td>ПАО «Лидер»</td><td class="sum">100 500,00 ₽</td><td>02.04.2026</td><td><span class="badge red">Требуются документы</span></td><td><a class="link-action" href="06-kartochka-garantii.html">Продолжить</a></td></tr>
+              <tr class="click-row" data-href="04b-liniya-form.html"><td>RDBG-23941</td><td>Черновик</td><td>Упрощённая</td><td>ООО «ТК Контур»</td><td class="sum">1 800 000,00 ₽</td><td>28.03.2026</td><td><span class="badge gray">Черновик</span></td><td><a class="link-action" href="04b-liniya-form.html">Продолжить</a></td></tr>
+            </tbody>
+          </table>
+        </section>
+      </div>
+    </main>
+  </div>
+  <script src="script.js"></script>
+</body>
+</html>
