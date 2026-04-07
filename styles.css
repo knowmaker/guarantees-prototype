@@ -103,6 +103,33 @@ a {
   font-weight: 600;
 }
 
+.sidebar-service .nav-item-main {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  min-width: 0;
+}
+
+.nav-dot {
+  width: 8px;
+  height: 8px;
+  border-radius: 999px;
+  background: #20b24f;
+  box-shadow: 0 0 0 2px #def7e7;
+  flex: 0 0 8px;
+}
+
+.nav-badge-new {
+  border-radius: 999px;
+  padding: 3px 9px;
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 0.2px;
+  color: #146b34;
+  background: #d9f5e3;
+  border: 1px solid #9fddba;
+}
+
 .nav-item.primary {
   background: #f5f6f8;
   border: 1px solid #e2e5ea;
@@ -326,7 +353,7 @@ h3 {
 
 .tab {
   padding: 0 2px 12px;
-  font-size: 24px;
+  font-size: 18px;
   color: #4f555f;
   border-bottom: 2px solid transparent;
 }
@@ -461,6 +488,9 @@ h3 {
   display: grid;
   grid-template-columns: repeat(3, 1fr);
   gap: 14px;
+  align-items: start;
+  grid-auto-flow: dense;
+  grid-auto-rows: 8px;
 }
 
 .service-card {
@@ -468,6 +498,8 @@ h3 {
   border: 1px solid #e0e4ea;
   border-radius: 14px;
   padding: 16px;
+  height: auto;
+  align-self: start;
 }
 
 .service-card h4 {
@@ -489,6 +521,45 @@ h3 {
   display: flex;
   justify-content: space-between;
   gap: 10px;
+}
+
+.service-item {
+  display: inline-flex;
+  align-items: flex-start;
+  gap: 9px;
+  min-width: 0;
+}
+
+.service-item-text {
+  line-height: 1.25;
+}
+
+.service-icon {
+  width: 20px;
+  height: 20px;
+  border-radius: 6px;
+  border: 1px solid #d7dce5;
+  background: #f2f4f8;
+  color: #5f6774;
+  font-size: 10px;
+  font-weight: 700;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  flex: 0 0 20px;
+  margin-top: 1px;
+}
+
+.service-icon.green {
+  background: #e6f5ea;
+  border-color: #c9e9d2;
+  color: #2f8d49;
+}
+
+.service-icon.red {
+  background: #fde7e4;
+  border-color: #f4c7c1;
+  color: #b23a2f;
 }
 
 .hero-card {
@@ -538,6 +609,32 @@ h3 {
 
 .catalog-tile-top.red {
   background: #f9d8d4;
+}
+
+.catalog-visual {
+  width: 52px;
+  height: 52px;
+  border-radius: 14px;
+  background: #ffffff;
+  border: 1px solid rgba(48, 57, 72, 0.12);
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 4px 10px rgba(37, 43, 53, 0.12);
+}
+
+.catalog-visual::before {
+  font-size: 24px;
+  line-height: 1;
+}
+
+.catalog-visual-salary::before {
+  content: "👤";
+}
+
+.catalog-visual-acquiring::before {
+  content: "💳";
 }
 
 .catalog-tile-body {
@@ -869,40 +966,19 @@ h3 {
 .interactive-marker::after {
   content: attr(data-marker);
   position: absolute;
-  right: 6px;
-  top: -10px;
-  font-size: 10px;
+  right: 0;
+  top: 0;
+  transform: translate(42%, -42%);
+  z-index: 4;
+  font-size: 8px;
   line-height: 1;
-  padding: 3px 6px;
+  padding: 1px 4px;
   border-radius: 999px;
   background: #f4f6fa;
   color: #5f6672;
   border: 1px solid #cfd5df;
   pointer-events: none;
-}
-
-[data-nav="primary"]::after {
-  background: #fde9e6;
-  border-color: #efb3ac;
-  color: #91352f;
-}
-
-[data-nav="secondary"]::after {
-  background: #eef1f5;
-  border-color: #cfd5df;
-  color: #4f5866;
-}
-
-[data-nav="detail"]::after {
-  background: #eaf4ff;
-  border-color: #b6cee8;
-  color: #365b83;
-}
-
-[data-nav="back"]::after {
-  background: #f4efe3;
-  border-color: #d8c9a3;
-  color: #745e25;
+  white-space: nowrap;
 }
 
 .click-row {
@@ -923,29 +999,23 @@ h3 {
 
 .click-row td:first-child {
   position: relative;
-  padding-left: 76px;
 }
 
 .click-row td:first-child::before {
-  content: "Детали";
+  content: "КЛИК";
   position: absolute;
-  left: 14px;
-  top: 50%;
-  transform: translateY(-50%);
-  font-size: 10px;
+  right: 0;
+  top: 0;
+  transform: translate(42%, -42%);
+  font-size: 8px;
   line-height: 1;
-  padding: 3px 6px;
+  padding: 1px 4px;
   border-radius: 999px;
-  background: #eaf4ff;
-  border: 1px solid #b6cee8;
-  color: #365b83;
-}
-
-.link-action,
-.crumbs a,
-.back-link {
-  text-decoration: underline;
-  text-underline-offset: 2px;
+  background: #f4f6fa;
+  color: #5f6672;
+  border: 1px solid #cfd5df;
+  pointer-events: none;
+  white-space: nowrap;
 }
 
 .proto-click-note {
@@ -1105,7 +1175,7 @@ body.mobile-desktop-locked > *:not(#mobile-desktop-notice) {
   }
 
   .click-row td:first-child {
-    padding-left: 14px;
+    padding-right: 14px;
   }
 
   .click-row td:first-child::before {

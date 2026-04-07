@@ -27,67 +27,37 @@
     };
   }
 
-  function markElement(el, nav, marker) {
+  function markElement(el) {
     if (!el || el.classList.contains('interactive-marker')) return;
     el.classList.add('interactive-marker');
-    el.dataset.nav = nav;
-    el.dataset.marker = marker;
+    el.dataset.marker = 'КЛИК';
   }
 
   function markInteractive() {
     document.querySelectorAll('a[href]').forEach((el) => {
       const href = el.getAttribute('href');
       if (!isRealHref(href)) return;
-
-      let nav = 'secondary';
-      let marker = 'Клик';
-
-      if (el.classList.contains('btn-red')) {
-        nav = 'primary';
-        marker = 'Действие';
-      } else if (el.classList.contains('back-link')) {
-        nav = 'back';
-        marker = 'Назад';
-      } else if (el.classList.contains('link-action')) {
-        nav = 'detail';
-        marker = 'Детали';
-      } else if (el.closest('.crumbs')) {
-        nav = 'secondary';
-        marker = 'Навигация';
-      } else if (el.classList.contains('nav-item')) {
-        nav = 'secondary';
-        marker = 'Навигация';
-      }
-
-      markElement(el, nav, marker);
+      markElement(el);
     });
 
     document.querySelectorAll('[data-choice]').forEach((el) => {
-      markElement(el, 'secondary', 'Клик');
+      markElement(el);
     });
 
     document.querySelectorAll('[data-g-category]').forEach((el) => {
-      markElement(el, 'secondary', 'Клик');
-    });
-
-    document.querySelectorAll('[data-demo-close], [data-hint-close], [data-demo-source-close]').forEach((el) => {
-      markElement(el, 'secondary', 'Клик');
+      markElement(el);
     });
 
     document.querySelectorAll('[data-toggle-item]').forEach((el) => {
-      markElement(el, 'secondary', 'Клик');
+      markElement(el);
     });
 
     document.querySelectorAll('.pill[data-href]').forEach((el) => {
-      markElement(el, 'secondary', 'Клик');
-    });
-
-    document.querySelectorAll('.click-row[data-href]').forEach((el) => {
-      markElement(el, 'detail', 'Детали');
+      markElement(el);
     });
 
     document.querySelectorAll('.click-card[data-href]').forEach((el) => {
-      markElement(el, 'detail', 'Переход');
+      markElement(el);
     });
   }
 
@@ -182,7 +152,7 @@
 
     const lines = [];
     if (reason) {
-      lines.push(`<div class="demo-popup-line"><span class="demo-popup-label">Почему:</span> ${reason}</div>`);
+      lines.push(`<div class="demo-popup-line"><span class="demo-popup-label"></span> ${reason}</div>`);
     }
     if (source) {
       lines.push(`<div class="demo-popup-line"><span class="demo-popup-label">Основа:</span> «${source}»</div>`);
@@ -198,8 +168,13 @@
     document.body.appendChild(plaque);
 
     const closeBtn = plaque.querySelector('[data-demo-close]');
+    const autoHideTimer = window.setTimeout(() => {
+      if (plaque && plaque.parentNode) plaque.remove();
+    }, 10000);
+
     if (closeBtn) {
       closeBtn.addEventListener('click', () => {
+        window.clearTimeout(autoHideTimer);
         plaque.remove();
       });
     }
@@ -436,6 +411,9 @@
     const crumbEl = page.querySelector('[data-form-page-crumb]');
     const navEl = page.querySelector('[data-form-nav-title]');
     const lineSection = page.querySelector('[data-line-selection]');
+    const contractBlockTitleEl = page.querySelector('[data-contract-block-title]');
+    const contractLabelEl = page.querySelector('[data-contract-label]');
+    const contractSelectEl = page.querySelector('[data-contract-select]');
 
     const modeConfig = {
       line: {
@@ -443,21 +421,30 @@
         intro: 'Выберите действующую линию и заполните заявление.',
         crumb: 'В рамках линии',
         nav: 'Гарантия в рамках линии',
-        showLineSelection: true
+        showLineSelection: true,
+        contractBlockTitle: 'Линия / договор',
+        contractLabel: 'Рамочный договор',
+        contractValue: 'Рамочный договор гарантии возобновляемый №RDBG01 от 04.09.2020 до 31.12.2029'
       },
       single: {
         title: 'Единоразовая гарантия',
         intro: 'Заполните заявление на выпуск единоразовой гарантии.',
         crumb: 'Единоразовая гарантия',
         nav: 'Единоразовая гарантия',
-        showLineSelection: false
+        showLineSelection: false,
+        contractBlockTitle: 'Договор / основание',
+        contractLabel: 'Договор-основание',
+        contractValue: 'Договор поставки №SP-88 от 02.04.2026'
       },
       simplified: {
         title: 'Упрощённая гарантия',
         intro: 'Заполните заявление на выпуск упрощённой гарантии.',
         crumb: 'Упрощённая гарантия',
         nav: 'Упрощённая гарантия',
-        showLineSelection: false
+        showLineSelection: false,
+        contractBlockTitle: 'Договор / основание',
+        contractLabel: 'Документ-основание',
+        contractValue: 'Контракт №44-ФЗ-781 от 05.03.2026'
       }
     };
 
@@ -469,6 +456,14 @@
     if (crumbEl) crumbEl.textContent = cfg.crumb;
     if (navEl) navEl.textContent = cfg.nav;
     if (lineSection) lineSection.classList.toggle('is-hidden', !cfg.showLineSelection);
+    if (contractBlockTitleEl) contractBlockTitleEl.textContent = cfg.contractBlockTitle;
+    if (contractLabelEl) contractLabelEl.textContent = cfg.contractLabel;
+    if (contractSelectEl) {
+      contractSelectEl.innerHTML = '';
+      const option = document.createElement('option');
+      option.textContent = cfg.contractValue;
+      contractSelectEl.appendChild(option);
+    }
     if (cfg.title) document.title = cfg.title;
   }
 
@@ -902,6 +897,47 @@
     window.addEventListener('orientationchange', render);
   }
 
+  function setupServiceGridCompaction() {
+    const grids = Array.from(document.querySelectorAll('.service-grid'));
+    if (!grids.length) return;
+
+    function applyGridSpans(grid) {
+      const cards = Array.from(grid.querySelectorAll('.service-card'));
+      cards.forEach((card) => {
+        card.style.gridRowEnd = '';
+      });
+
+      if (window.matchMedia('(max-width: 1280px)').matches) return;
+
+      const styles = window.getComputedStyle(grid);
+      const rowHeight = parseFloat(styles.getPropertyValue('grid-auto-rows')) || 8;
+      const rowGap = parseFloat(styles.getPropertyValue('row-gap')) || 14;
+
+      cards.forEach((card) => {
+        const cardHeight = card.getBoundingClientRect().height;
+        const span = Math.max(1, Math.ceil((cardHeight + rowGap) / (rowHeight + rowGap)));
+        card.style.gridRowEnd = `span ${span}`;
+      });
+    }
+
+    let rafId = 0;
+    function scheduleApply() {
+      window.cancelAnimationFrame(rafId);
+      rafId = window.requestAnimationFrame(() => {
+        grids.forEach((grid) => applyGridSpans(grid));
+      });
+    }
+
+    window.addEventListener('resize', scheduleApply);
+    window.addEventListener('orientationchange', scheduleApply);
+    window.addEventListener('load', scheduleApply);
+    if (document.fonts && document.fonts.ready) {
+      document.fonts.ready.then(scheduleApply).catch(() => {});
+    }
+
+    scheduleApply();
+  }
+
   setupRowLinks();
   setupCardLinks();
   setupPillLinks();
@@ -916,5 +952,6 @@
   setupChangeFormContext();
   setupSignStepContext();
   setupDesktopOnlyNotice();
+  setupServiceGridCompaction();
   markInteractive();
 })();

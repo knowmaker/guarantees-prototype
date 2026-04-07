@@ -19,10 +19,19 @@
         <a class="nav-item" href="#">Счета</a>
         <a class="nav-item" href="#">Контрагенты</a>
         <div class="nav-section">Мои сервисы</div>
-        <a class="nav-item active" href="index.html">Все сервисы</a>
-        <a class="nav-item" href="02-garantii-hub.html">Гарантии</a>
-        <a class="nav-item" href="#">Кредитные продукты</a>
-        <a class="nav-item" href="#">Справки</a>
+        <a class="nav-item sidebar-service" href="02-garantii-hub.html">
+          <span class="nav-item-main">Банковские гарантии</span>
+          <span class="nav-badge-new">новое</span>
+        </a>
+        <a class="nav-item sidebar-service" href="#">
+          <span class="nav-item-main">Аккредитивы</span>
+        </a>
+        <a class="nav-item sidebar-service" href="#">
+          <span class="nav-item-main">Справки</span>
+        </a>
+        <a class="nav-item sidebar-service" href="#">
+          <span class="nav-item-main">Конвертация валюты</span>
+        </a>
       </nav>
     </aside>
 
@@ -42,6 +51,7 @@
           <div class="catalog-grid">
             <article class="catalog-tile">
               <div class="catalog-tile-top green">
+                <span class="catalog-visual catalog-visual-salary" aria-hidden="true"></span>
                 <span class="badge dark">Рекомендуем</span>
               </div>
               <div class="catalog-tile-body">
@@ -51,6 +61,7 @@
             </article>
             <article class="catalog-tile">
               <div class="catalog-tile-top">
+                <span class="catalog-visual catalog-visual-acquiring" aria-hidden="true"></span>
                 <span class="badge dark">Рекомендуем</span>
               </div>
               <div class="catalog-tile-body">
@@ -73,31 +84,56 @@
           <article class="service-card">
             <h4>Кредитные продукты</h4>
             <ul class="service-list">
-              <li><span>Кредитные продукты</span><span class="badge gray">для вас</span></li>
-              <li><strong>Банковская гарантия</strong><a class="btn-link" href="02-garantii-hub.html">Перейти</a></li>
-              <li><span>Лизинг автомобилей</span><span class="muted">→</span></li>
-              <li><span>Факторинг</span><span class="muted">→</span></li>
-              <li><span>Льготный кредит</span><span class="muted">→</span></li>
+              <li><span class="service-item"><span class="service-icon">₽</span><span class="service-item-text">Кредитные продукты</span></span><span class="badge gray">для вас</span></li>
+              <li><span class="service-item"><span class="service-icon">Л</span><span class="service-item-text">Лизинг автомобилей и спецтехники</span></span><span class="muted">→</span></li>
+              <li><span class="service-item"><span class="service-icon">Ф</span><span class="service-item-text">Факторинг</span></span><span class="muted">→</span></li>
+              <li><span class="service-item"><span class="service-icon">К</span><span class="service-item-text">Льготный кредит</span></span><span class="muted">→</span></li>
+              <li><span class="service-item"><span class="service-icon green">A</span><span class="service-item-text">Аккредитивы</span></span><span class="muted">→</span></li>
             </ul>
           </article>
           <article class="service-card click-card" data-href="02-garantii-hub.html">
-            <h4>Гарантии</h4>
+            <h4>Банковские гарантии</h4>
             <ul class="service-list">
-              <li><strong>Единая точка входа в гарантии</strong><span class="badge red">новое</span></li>
-              <li><span>Оформить гарантию</span><a class="btn-link" href="03-oformit-wizard.html">Открыть</a></li>
-              <li><span>Мои гарантии и заявки</span><a class="btn-link" href="05-moi-garantii-zayavki.html">Открыть</a></li>
-              <li><span>Документы на подпись</span><a class="btn-link" href="07-dokumenty-podpis.html">Открыть</a></li>
-              <li><span>Входящие гарантии</span><a class="btn-link" href="09-vhodyashchie-garantii.html">Открыть</a></li>
+              <li><span class="service-item"><span class="service-icon green">Г</span><span class="service-item-text">Оформление банковских гарантий</span></span><span class="badge green">новое</span></li>
+            </ul>
+          </article>
+          <article class="service-card">
+            <h4>Эквайринг и приём платежей</h4>
+            <ul class="service-list">
+              <li><span class="service-item"><span class="service-icon">Э</span><span class="service-item-text">Торговый эквайринг</span></span><span class="muted">→</span></li>
+              <li><span class="service-item"><span class="service-icon">И</span><span class="service-item-text">Интернет-эквайринг</span></span><span class="muted">→</span></li>
+              <li><span class="service-item"><span class="service-icon">СБП</span><span class="service-item-text">СБП: выплаты физ. лицам и расчёты между юр. лицами</span></span><span class="muted">→</span></li>
+              <li><span class="service-item"><span class="service-icon">СБП</span><span class="service-item-text">СБП без эквайринга</span></span><span class="muted">→</span></li>
             </ul>
           </article>
           <article class="service-card">
             <h4>Обслуживание бизнеса</h4>
             <ul class="service-list">
-              <li><span>Нейроофис</span><span class="badge gray">новое</span></li>
-              <li><span>Справки</span><span class="muted">→</span></li>
-              <li><span>Входящие гарантии</span><span class="muted">→</span></li>
-              <li><span>Госзакупки</span><span class="muted">→</span></li>
-              <li><span>Счета на оплату</span><span class="muted">→</span></li>
+              <li><span class="service-item"><span class="service-icon">Н</span><span class="service-item-text">Нейроофис</span></span><span class="badge gray">новое</span></li>
+              <li><span class="service-item"><span class="service-icon green">С</span><span class="service-item-text">Справки</span></span><span class="muted">→</span></li>
+              <li><span class="service-item"><span class="service-icon">В</span><span class="service-item-text">Входящие гарантии</span></span><span class="muted">→</span></li>
+              <li><span class="service-item"><span class="service-icon">С</span><span class="service-item-text">Счета на оплату</span></span><span class="muted">→</span></li>
+              <li><span class="service-item"><span class="service-icon">Ф</span><span class="service-item-text">Счета-фактуры</span></span><span class="muted">→</span></li>
+              <li><span class="service-item"><span class="service-icon">Л</span><span class="service-item-text">Альфа-Логист</span></span><span class="badge gray">новое</span></li>
+              <li><span class="service-item"><span class="service-icon">А</span><span class="service-item-text">Автострахование</span></span><span class="muted">→</span></li>
+            </ul>
+          </article>
+          <article class="service-card">
+            <h4>ВЭД для бизнеса</h4>
+            <ul class="service-list">
+              <li><span class="service-item"><span class="service-icon green">$</span><span class="service-item-text">Конвертация валюты</span></span><span class="muted">→</span></li>
+            </ul>
+          </article>
+          <article class="service-card">
+            <h4>Хеджирование</h4>
+            <ul class="service-list">
+              <li><span class="service-item"><span class="service-icon">H</span><span class="service-item-text">Хеджирование валютных и процентных рисков</span></span><span class="muted">→</span></li>
+            </ul>
+          </article>
+          <article class="service-card">
+            <h4>Банковское сопровождение контрактов</h4>
+            <ul class="service-list">
+              <li><span class="service-item"><span class="service-icon">Б</span><span class="service-item-text">Сопровождение контрактов</span></span><span class="muted">→</span></li>
             </ul>
           </article>
         </section>
