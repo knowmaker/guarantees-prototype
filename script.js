@@ -70,7 +70,7 @@
       markElement(el, 'secondary', 'Клик');
     });
 
-    document.querySelectorAll('[data-hint-close]').forEach((el) => {
+    document.querySelectorAll('[data-demo-close], [data-hint-close], [data-demo-source-close]').forEach((el) => {
       markElement(el, 'secondary', 'Клик');
     });
 
@@ -137,13 +137,72 @@
   }
 
   function setupDemoHints() {
-    document.querySelectorAll('[data-hint-close]').forEach((btn) => {
+    document.querySelectorAll('[data-demo-close], [data-hint-close], [data-demo-source-close]').forEach((btn) => {
       btn.addEventListener('click', (e) => {
-        const hint = e.target.closest('.demo-hint');
+        const hint = e.target.closest('.demo-popup, .demo-source, .demo-hint');
         if (!hint) return;
-        hint.classList.add('is-hidden');
+        hint.remove();
       });
     });
+  }
+
+  function getDemoReasonByPage() {
+    const explicitReason = document.body.getAttribute('data-demo-reason');
+    if (explicitReason) return explicitReason;
+
+    const pageName = ((window.location.pathname || '').split('/').pop() || '').toLowerCase();
+    const reasonMap = {
+      'index.html': 'Переиспользован экран каталога сервисов как старт маршрута.',
+      '01-services-garantii.html': 'Сохранён паттерн каталога сервисов, добавлен вход в раздел гарантий.',
+      '02-garantii-hub.html': 'Собран единый хаб из существующих карточек и сводных блоков.',
+      '03-oformit-wizard.html': 'Мастер выбора построен как эволюция текущих рабочих форм.',
+      '04a-uproschennaya.html': 'Сценарий упрощённой гарантии встроен в продуктовый контур банка.',
+      '04b-liniya-form.html': 'Форма заявления сохранена близко к текущим экранам Альфа-Кредит.',
+      '04c-edinorazovaya.html': 'Маршрут единоразовой гарантии оформлен в стиле продуктового раздела.',
+      '04d-assisted.html': 'Assisted-сценарий оформлен как штатный путь через менеджера.',
+      '05-moi-garantii-zayavki.html': 'Реестр собран на базе существующих таблиц гарантий и заявок.',
+      '06-kartochka-garantii.html': 'Карточка детализирована по паттерну действующих карточек заявки.',
+      '07-dokumenty-podpis.html': 'Список документов на подпись собран на базе текущего табличного паттерна.',
+      '07b-podpis-step.html': 'Шаг подписания оформлен в общей структуре карточки процесса.',
+      '08-izmenit-garantiyu.html': 'Экран изменения гарантии сохранён близко к legacy-паттерну.',
+      '08b-forma-izmeneniya.html': 'Форма изменения адаптирована из действующего шаблона заявления.',
+      '09-vhodyashchie-garantii.html': 'Список входящих гарантий сохранён в привычном формате реестра.',
+      '09b-kartochka-vhodyashchey.html': 'Карточка входящей гарантии собрана по текущему шаблону деталей.',
+      '10-empty-errors.html': 'Пустые состояния оформлены в существующем UI-языке банка.'
+    };
+    return reasonMap[pageName] || 'Сохранены ключевые паттерны текущего интерфейса.';
+  }
+
+  function setupDemoSourcePlaque() {
+    const source = document.body.getAttribute('data-demo-source');
+    const reason = getDemoReasonByPage();
+    if (!source && !reason) return;
+
+    document.querySelectorAll('.demo-popup, .demo-source, .demo-hint').forEach((el) => el.remove());
+
+    const lines = [];
+    if (reason) {
+      lines.push(`<div class="demo-popup-line"><span class="demo-popup-label">Почему:</span> ${reason}</div>`);
+    }
+    if (source) {
+      lines.push(`<div class="demo-popup-line"><span class="demo-popup-label">Основа:</span> «${source}»</div>`);
+    }
+
+    const plaque = document.createElement('aside');
+    plaque.className = 'demo-popup';
+    plaque.innerHTML = [
+      '<div class="demo-popup-head">DEMO</div>',
+      `<div class="demo-popup-text">${lines.join('')}</div>`,
+      '<button type="button" class="demo-popup-close" data-demo-close>Скрыть</button>'
+    ].join('');
+    document.body.appendChild(plaque);
+
+    const closeBtn = plaque.querySelector('[data-demo-close]');
+    if (closeBtn) {
+      closeBtn.addEventListener('click', () => {
+        plaque.remove();
+      });
+    }
   }
 
   function setupWizard() {
@@ -368,6 +427,7 @@
   setupCardLinks();
   setupPillLinks();
   setupToggleGroups();
+  setupDemoSourcePlaque();
   setupDemoHints();
   setupWizard();
   setupGuaranteeClassification();

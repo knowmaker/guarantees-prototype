@@ -6,7 +6,7 @@
   <title>Гарантия в рамках линии</title>
   <link rel="stylesheet" href="styles.css" />
 </head>
-<body>
+<body data-demo-source="Экраны создания заявления Альфа-Кредит">
   <div class="app-shell">
     <aside class="sidebar">
       <div class="logo"><span class="logo-badge">A</span> Альфа-Бизнес</div>
@@ -36,7 +36,19 @@
 
         <section class="section form-shell">
           <h3>Заявление на банковскую гарантию</h3>
-          <article class="form-section"><h4>Линия / договор</h4><div class="field-grid one"><div class="field"><label>Рамочный договор</label><select><option>Рамочный договор гарантии возобновляемый №RDBG01 от 04.09.2020 до 31.12.2029</option></select></div></div></article>
+
+          <article class="alert mt-12">
+            Укажите СНИЛС в настройках профиля для подписания документов в текущем процессе.
+          </article>
+
+          <article class="form-section">
+            <h4>Линия / договор</h4>
+            <div class="field-grid one">
+              <div class="field"><label>Рамочный договор</label><select><option>Рамочный договор гарантии возобновляемый №RDBG01 от 04.09.2020 до 31.12.2029</option></select></div>
+              <div class="field"><label>Наименование принципала, ИНН</label><select><option>АО «А Г», ИНН 7702000002</option></select></div>
+            </div>
+          </article>
+
           <article class="form-section" data-guarantee-classification>
             <h4>Категория гарантии</h4>
             <div class="choice-grid">
@@ -60,13 +72,71 @@
             </div>
             <p class="muted mt-8 mb-0 small" data-g-prefill>Категория и вид гарантии можно уточнить по выбранному сценарию.</p>
           </article>
-          <article class="form-section"><h4>Способ выдачи</h4><div class="choice-grid" data-toggle-group><button class="choice selected" data-toggle-item>На бумаге</button><button class="choice" data-toggle-item>Электронно</button></div></article>
-          <article class="form-section"><h4>Бенефициар</h4><div class="field-grid one"><div class="field"><label>Наименование компании</label><input value="ОБЩЕСТВО С ОГРАНИЧЕННОЙ ОТВЕТСТВЕННОСТЬЮ «МЕГА МОЛЛ»" /></div></div></article>
-          <article class="form-section"><h4>Условия гарантии</h4><div class="field-grid"><div class="field"><label>Дата выдачи</label><input value="20.04.2026" /></div><div class="field"><label>Дата вступления в силу</label><input value="20.04.2026" /></div><div class="field"><label>Дата окончания действия</label><input value="24.04.2027" /></div></div></article>
-          <article class="form-section"><h4>Срок</h4><div class="field-grid two"><div class="field"><label>Срок действия гарантии (дней)</label><input value="370" /></div><div class="field"><label>Сумма</label><input value="100 000 000,00" /></div></div></article>
-          <article class="form-section"><h4>Предмет обязательства</h4><div class="field-grid one"><div class="field"><label>Описание</label><textarea>Исполнение обязательств по договору аренды №123 от 14.04.2026.</textarea></div></div></article>
-          <article class="form-section"><h4>Обеспечение</h4><div class="field-grid two"><div class="field"><label>Тип обеспечения</label><select><option>Поручительство / в рамках лимита</option></select></div><div class="field"><label>Размер обеспечения</label><input value="20 000 000,00" /></div></div></article>
-          <article class="form-section"><h4>Документы</h4><div class="field-grid one"><div class="field"><label>Файлы</label><input value="договор_аренды.pdf, карточка_контрагента.docx" /></div></div></article>
+
+          <article class="form-section">
+            <h4>Способ выдачи</h4>
+            <div class="choice-grid" data-toggle-group><button class="choice selected" data-toggle-item>На бумаге</button><button class="choice" data-toggle-item>Электронно</button></div>
+            <div class="field-grid one mt-12">
+              <div class="field"><label>Наименование договора</label><input value="Договор аренды №123" /></div>
+              <div class="field"><label>Адрес объекта обязательства</label><input value="Москва, Красная площадь, д. 1" /></div>
+            </div>
+          </article>
+
+          <article class="form-section">
+            <h4>Бенефициар</h4>
+            <div class="field-grid one"><div class="field"><label>Наименование компании</label><input value="АКЦИОНЕРНОЕ ОБЩЕСТВО «МЕГА»" /></div></div>
+            <div class="field-grid mt-12">
+              <div class="field"><label>ИНН</label><input value="3512005293" /></div>
+              <div class="field"><label>ОГРН</label><input value="1083538000743" /></div>
+              <div class="field"><label>КПП</label><input value="351201001" /></div>
+            </div>
+            <div class="field-grid one mt-12"><div class="field"><label>Адрес</label><input value="161400, Вологодская обл., Кичменгско-Городецкий р-н, село Кичменгский Городок, ул. Лесная, д. 7" /></div></div>
+          </article>
+
+          <article class="form-section">
+            <h4>Условия гарантии</h4>
+            <div class="field-grid">
+              <div class="field"><label>Дата выдачи</label><input value="20.04.2026" /></div>
+              <div class="field"><label>Дата вступления в силу</label><input value="20.04.2026" /></div>
+              <div class="field"><label>Дата окончания действия</label><input value="24.04.2027" /></div>
+            </div>
+            <div class="choice-grid mt-12" data-toggle-group><button class="choice" data-toggle-item>Сегодня</button><button class="choice" data-toggle-item>Следующий рабочий день</button></div>
+          </article>
+
+          <article class="form-section">
+            <h4>Предел обязательств</h4>
+            <div class="field-grid two">
+              <div class="field"><label>Предел обязательств</label><input value="100 000 000,00" /></div>
+              <div class="field"><label>Срок действия гарантии (дней)</label><input value="370" /></div>
+            </div>
+            <div class="choice-grid mt-12" data-toggle-group><button class="choice" data-toggle-item>EUR</button><button class="choice" data-toggle-item>USD</button><button class="choice" data-toggle-item>CNY</button><button class="choice selected" data-toggle-item>RUR</button></div>
+            <div class="mt-12 muted">☐ Валюта платежа по гарантии отличается от валюты предела обязательств</div>
+            <div class="mt-8 muted">☐ Есть дополнительные условия</div>
+          </article>
+
+          <article class="form-section">
+            <h4>Текст гарантии</h4>
+            <div class="choice-grid" data-toggle-group><button class="choice selected" data-toggle-item>По шаблону</button><button class="choice" data-toggle-item>Свой текст</button></div>
+            <div class="field-grid one mt-12"><div class="field"><label>Подсудность</label><input value="АС города Москвы" /></div></div>
+            <div class="mt-12"><button class="btn btn-light">Скачать текст гарантии</button></div>
+          </article>
+
+          <article class="form-section">
+            <h4>Вознаграждение банка за выдачу</h4>
+            <div class="field-grid">
+              <div class="field"><label>Ставка</label><input value="1 %" /></div>
+              <div class="field"><label>Сумма вознаграждения</label><input value="70 000 ₽" /></div>
+              <div class="field"><label>Периодичность оплаты</label><select><option>Ежемесячно</option></select></div>
+            </div>
+            <p class="muted mt-8 mb-0">Минимальная сумма вознаграждения 70 000 ₽.</p>
+          </article>
+
+          <article class="form-section">
+            <h4>Документы</h4>
+            <div class="field-grid one"><div class="field"><label>Прилагаемые документы</label><input value="договор_аренды.pdf, карточка_контрагента.docx, подтверждение_обязательств.pdf" /></div></div>
+            <p class="small muted mt-8 mb-0">Допустимые форматы: doc, docx, htm, html, jpg, pdf.</p>
+          </article>
+
           <div class="filter-row mt-16"><a class="btn btn-red" href="06-kartochka-garantii.html">Продолжить</a><button class="btn btn-light">Сохранить черновик</button><button class="btn btn-light">Отправить</button></div>
         </section>
       </div>

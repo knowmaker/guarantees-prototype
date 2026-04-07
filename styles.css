@@ -957,78 +957,77 @@ h3 {
   color: #57606f;
 }
 
-.demo-hint {
+.demo-popup,
+.demo-hint,
+.demo-source {
   position: fixed;
   top: 72px;
   right: 24px;
-  z-index: 1200;
-  width: 380px;
+  z-index: 1400;
+  width: 420px;
   max-width: calc(100vw - 28px);
-  border: 1px solid #f0b8b1;
+  border: 1px solid #ef3124;
   background: #fff6f5;
-  border-radius: 12px;
-  padding: 12px 14px;
+  border-radius: 14px;
+  padding: 14px 16px 12px;
   color: #3f454f;
-  font-size: 13px;
-  display: flex;
-  align-items: flex-start;
-  gap: 10px;
+  font-size: 14px;
   box-shadow: 0 14px 28px rgba(36, 42, 54, 0.2);
   animation: demoHintEnter 0.35s ease, demoHintPulse 2.8s ease-in-out 0.5s infinite;
 }
 
-.demo-hint::before {
-  content: "DEMO";
-  position: absolute;
-  top: -10px;
-  left: 12px;
-  font-size: 10px;
+.demo-popup-head,
+.demo-source-head {
+  display: inline-flex;
+  align-items: center;
+  font-size: 11px;
   font-weight: 700;
   letter-spacing: 0.6px;
   color: #fff;
   background: #ef3124;
   border-radius: 999px;
-  padding: 3px 7px;
+  padding: 3px 9px;
   box-shadow: 0 4px 8px rgba(239, 49, 36, 0.35);
 }
 
-.demo-hint.is-hidden {
-  display: none;
+.demo-popup-text,
+.demo-source-text {
+  margin-top: 8px;
+  font-size: 13px;
+  color: #49505d;
+  line-height: 1.4;
+  padding-right: 80px;
 }
 
-.demo-hint-icon {
-  width: 18px;
-  height: 18px;
-  border-radius: 999px;
-  border: 1px solid #e7968d;
-  color: #a43d34;
-  background: #ffe2de;
-  font-size: 12px;
-  font-weight: 700;
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  flex: 0 0 auto;
-  margin-top: 1px;
+.demo-popup-line + .demo-popup-line {
+  margin-top: 4px;
 }
 
-.demo-hint-body {
-  flex: 1;
+.demo-popup-label {
+  color: #a13228;
+  font-weight: 600;
 }
 
-.demo-hint-close {
-  border: 0;
+.demo-popup-close,
+.demo-hint-close,
+.demo-source-close {
+  position: absolute;
+  right: 12px;
+  top: 12px;
+  border: 1px solid #f0b8b1;
   background: #fff;
-  color: #555f6e;
+  color: #9f3d34;
+  border-radius: 7px;
   font-size: 12px;
-  padding: 4px 7px;
-  border-radius: 6px;
+  font-weight: 600;
+  padding: 4px 9px;
   cursor: pointer;
-  border: 1px solid #dadfe8;
 }
 
-.demo-hint-close:hover {
-  background: #f2f4f8;
+.demo-popup-close:hover,
+.demo-hint-close:hover,
+.demo-source-close:hover {
+  background: #fff0ee;
 }
 
 @keyframes demoHintEnter {
@@ -1057,7 +1056,9 @@ h3 {
     display: none;
   }
 
-  .demo-hint {
+  .demo-popup,
+  .demo-hint,
+  .demo-source {
     width: auto;
     left: 12px;
     right: 12px;

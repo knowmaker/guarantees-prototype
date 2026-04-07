@@ -6,7 +6,7 @@
   <title>Карточка заявки / гарантии</title>
   <link rel="stylesheet" href="styles.css" />
 </head>
-<body>
+<body data-demo-source="Экраны создания заявления Альфа-Кредит">
   <div class="app-shell">
     <aside class="sidebar">
       <div class="logo"><span class="logo-badge">A</span> Альфа-Бизнес</div>
@@ -24,16 +24,29 @@
         <div class="crumbs"><a href="index.html">Все сервисы</a><span>›</span><a href="02-garantii-hub.html">Гарантии</a><span>›</span><a href="05-moi-garantii-zayavki.html">Мои гарантии и заявки</a><span>›</span><span>Заявка №RDBG-24017</span></div>
         <a class="back-link" href="05-moi-garantii-zayavki.html">← Назад в реестр</a>
         <h1>Заявка №RDBG-24017</h1>
+        <div class="muted mt-8">№ 24017 • R006</div>
         <div class="big-status"><span class="badge orange">На подпись</span><span class="muted">Срок подписания: до 08.04.2026 18:00 (МСК)</span></div>
+
+        <section class="section card">
+          <h3>Проверьте и подпишите документы</h3>
+          <div class="table-wrap mt-12"><table class="table"><thead><tr><th>Документ</th><th>Формат</th><th>Статус</th><th></th></tr></thead><tbody>
+            <tr><td>Заявление на гарантию.docx</td><td>DOCX</td><td><span class="badge orange">На подпись</span></td><td><a class="link-action" href="07b-podpis-step.html">Подписать</a></td></tr>
+            <tr><td>Проект гарантии.pdf</td><td>PDF</td><td><span class="badge orange">На подпись</span></td><td><button class="btn btn-light">Скачать</button></td></tr>
+          </tbody></table></div>
+        </section>
 
         <section class="section grid cols-2">
           <article class="card">
-            <h3>Ключевые атрибуты</h3>
+            <h3>Информация о гарантии</h3>
             <div class="table-wrap mt-12"><table class="table"><tbody>
-              <tr><td>Тип</td><td>Заявка на банковскую гарантию</td></tr>
+              <tr><td>Тип и способ выдачи</td><td>Арендная гарантия, на бумаге</td></tr>
               <tr><td>Программа</td><td>В рамках гарантийной линии №RDBG01</td></tr>
-              <tr><td>Бенефициар</td><td>АО «Горизонт»</td></tr>
-              <tr><td>Сумма</td><td class="sum">6 100 000,00 ₽</td></tr>
+              <tr><td>Бенефициар</td><td>АКЦИОНЕРНОЕ ОБЩЕСТВО «МЕГА»</td></tr>
+              <tr><td>Предел обязательств</td><td class="sum">100 000 000,00 ₽</td></tr>
+              <tr><td>Дата выдачи</td><td>20.02.2026</td></tr>
+              <tr><td>Вступление в силу</td><td>20.02.2026</td></tr>
+              <tr><td>Дата окончания</td><td>24.02.2027</td></tr>
+              <tr><td>Срок действия гарантии</td><td>370 дней</td></tr>
             </tbody></table></div>
           </article>
           <article class="card">
@@ -49,18 +62,18 @@
 
         <section class="section grid cols-2">
           <article class="card">
-            <div class="row between"><h3>Документы</h3><a class="btn btn-light" href="07-dokumenty-podpis.html">К списку подписания</a></div>
-            <div class="table-wrap mt-12"><table class="table"><thead><tr><th>Документ</th><th>Статус</th><th></th></tr></thead><tbody>
-              <tr><td>Заявление на гарантию.docx</td><td><span class="badge orange">На подпись</span></td><td><a class="link-action" href="07b-podpis-step.html">Подписать</a></td></tr>
-              <tr><td>Проект гарантии.pdf</td><td><span class="badge orange">На подпись</span></td><td><a class="link-action" href="#">Скачать</a></td></tr>
+            <div class="row between"><h3>Документы и вложения</h3><a class="btn btn-light" href="07-dokumenty-podpis.html">К списку подписания</a></div>
+            <div class="table-wrap mt-12"><table class="table"><thead><tr><th>Файл</th><th>Версия</th><th>Комментарий</th></tr></thead><tbody>
+              <tr><td>договор_аренды.pdf</td><td>v1</td><td>Основание обязательства</td></tr>
+              <tr><td>карточка_контрагента.docx</td><td>v2</td><td>Реквизиты бенефициара</td></tr>
             </tbody></table></div>
           </article>
           <article class="card">
             <h3>История событий</h3>
-            <div class="table-wrap mt-12"><table class="table"><thead><tr><th>Дата</th><th>Событие</th></tr></thead><tbody>
-              <tr><td>07.04.2026 09:42</td><td>Документы отправлены на подпись</td></tr>
-              <tr><td>06.04.2026 17:35</td><td>Проверка завершена</td></tr>
-              <tr><td>05.04.2026 11:12</td><td>Заявка зарегистрирована</td></tr>
+            <div class="table-wrap mt-12"><table class="table"><thead><tr><th>Дата</th><th>Событие</th><th>Комментарий</th></tr></thead><tbody>
+              <tr><td>07.04.2026 09:42</td><td>Документы отправлены на подпись</td><td>Подписант: Петров П.П.</td></tr>
+              <tr><td>06.04.2026 17:35</td><td>Проверка завершена</td><td>Замечаний нет</td></tr>
+              <tr><td>05.04.2026 11:12</td><td>Заявка зарегистрирована</td><td>ID заявки: RDBG-24017</td></tr>
             </tbody></table></div>
           </article>
         </section>

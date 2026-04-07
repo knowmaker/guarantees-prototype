@@ -6,7 +6,7 @@
   <title>Экран 08B — Форма изменения гарантии</title>
   <link rel="stylesheet" href="styles.css" />
 </head>
-<body>
+<body data-demo-source="Раздел Изменение гарантии Альфа-кредит">
   <div class="app-shell">
     <aside class="sidebar">
       <div class="logo"><span class="logo-badge">A</span> Альфа-Бизнес</div>
@@ -32,16 +32,32 @@
 
         <section class="section form-shell">
           <article class="form-section">
+            <h4>Текущие параметры гарантии</h4>
+            <div class="field-grid two">
+              <div class="field"><label>Номер гарантии</label><input value="RDBG0105" /></div>
+              <div class="field"><label>Бенефициар</label><input value="ООО «ТИТАН»" /></div>
+            </div>
+            <div class="field-grid two mt-12">
+              <div class="field"><label>Текущая дата окончания</label><input value="24.12.2026" /></div>
+              <div class="field"><label>Текущая сумма</label><input value="6 100 000,00 ₽" /></div>
+            </div>
+          </article>
+
+          <article class="form-section">
             <h4>Параметры изменения</h4>
             <div class="field-grid two">
               <div class="field">
                 <label>Тип изменения</label>
-                <select><option>Продление срока действия</option></select>
+                <select><option>Продление срока действия</option><option>Изменение суммы</option><option>Изменение бенефициара</option></select>
               </div>
               <div class="field">
                 <label>Новая дата окончания</label>
                 <input value="24.12.2027" />
               </div>
+            </div>
+            <div class="field-grid two mt-12">
+              <div class="field"><label>Новая сумма (если меняется)</label><input value="6 100 000,00 ₽" /></div>
+              <div class="field"><label>Дата вступления изменения</label><input value="10.04.2026" /></div>
             </div>
             <div class="field-grid one mt-12">
               <div class="field">

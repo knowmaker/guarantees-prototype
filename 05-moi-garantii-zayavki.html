@@ -6,7 +6,7 @@
   <title>Мои гарантии и заявки</title>
   <link rel="stylesheet" href="styles.css" />
 </head>
-<body>
+<body data-demo-source="Раздел Исходящие гарантии Альфа-кредит">
   <div class="app-shell">
     <aside class="sidebar">
       <div class="logo"><span class="logo-badge">A</span> Альфа-Бизнес</div>
@@ -38,21 +38,39 @@
         </div>
 
         <section class="section">
-          <input class="search" type="text" placeholder="Поиск по номеру / ID / бенефициару" />
-          <div class="filter-row">
-            <span class="pill">Компания</span><span class="pill">Тип</span><span class="pill">Программа</span><span class="pill dark">Статус: действующие</span><span class="pill">Дата</span>
+          <div class="row">
+            <span class="pill">24.01.2025 - 23.01.2026</span>
+            <input class="search" type="text" placeholder="Поиск по номеру / ID / бенефициару" />
           </div>
-          <div class="filter-row"><a class="btn btn-red" href="03-oformit-wizard.html">Новая гарантия</a><a class="btn btn-light" href="08-izmenit-garantiyu.html">Изменить гарантию</a></div>
+          <div class="filter-row">
+            <span class="pill">Компания</span>
+            <span class="pill">Тип</span>
+            <span class="pill">Программа</span>
+            <span class="pill dark">Статус: действующие</span>
+            <span class="pill">Дата</span>
+          </div>
+          <div class="filter-row">
+            <a class="btn btn-red" href="03-oformit-wizard.html">Новая гарантия</a>
+            <a class="btn btn-light" href="08-izmenit-garantiyu.html">Изменить гарантию</a>
+          </div>
+        </section>
+
+        <section class="section row between">
+          <div class="muted">Всего 590</div>
+          <div class="filter-row">
+            <button class="btn btn-light">Настройка</button>
+            <a class="btn btn-light" href="03-oformit-wizard.html">+ Новая гарантия</a>
+          </div>
         </section>
 
         <section class="section table-wrap">
           <table class="table">
-            <thead><tr><th>Номер / ID</th><th>Тип</th><th>Программа</th><th>Бенефициар</th><th>Сумма</th><th>Дата</th><th>Статус</th><th>Следующее действие</th></tr></thead>
+            <thead><tr><th>Дата</th><th>Номер / ID</th><th>Компания</th><th>Тип</th><th>Программа</th><th>Сумма</th><th>Статус</th><th>Следующее действие</th></tr></thead>
             <tbody>
-              <tr class="click-row" data-href="06-kartochka-garantii.html"><td>RDBG0105</td><td>Гарантия</td><td>В рамках линии</td><td>ООО «МЕГА»</td><td class="sum">2 345 678,00 ₽</td><td>22.01.2026</td><td><span class="badge green">Действует</span></td><td><a class="link-action" href="06-kartochka-garantii.html">Открыть</a> <a class="link-action" href="08-izmenit-garantiyu.html">Изменить</a></td></tr>
-              <tr class="click-row" data-href="06-kartochka-garantii.html"><td>RDBG-24017</td><td>Заявка</td><td>В рамках линии</td><td>АО «Горизонт»</td><td class="sum">6 100 000,00 ₽</td><td>05.04.2026</td><td><span class="badge orange">На подпись</span></td><td><a class="link-action" href="07-dokumenty-podpis.html">Подписать</a> <a class="link-action" href="06-kartochka-garantii.html">Открыть</a></td></tr>
-              <tr class="click-row" data-href="06-kartochka-garantii.html"><td>RDBG-23988</td><td>Заявка</td><td>Единоразовая</td><td>ПАО «Лидер»</td><td class="sum">100 500,00 ₽</td><td>02.04.2026</td><td><span class="badge red">Требуются документы</span></td><td><a class="link-action" href="06-kartochka-garantii.html">Продолжить</a></td></tr>
-              <tr class="click-row" data-href="04b-liniya-form.html"><td>RDBG-23941</td><td>Черновик</td><td>Упрощённая</td><td>ООО «ТК Контур»</td><td class="sum">1 800 000,00 ₽</td><td>28.03.2026</td><td><span class="badge gray">Черновик</span></td><td><a class="link-action" href="04b-liniya-form.html">Продолжить</a></td></tr>
+              <tr class="click-row" data-href="06-kartochka-garantii.html"><td>22.01.2026</td><td>RDBG0105</td><td>ООО «МЕГА»</td><td>Гарантия</td><td>В рамках линии</td><td class="sum">2 345 678,00 ₽</td><td><span class="badge green">Действует</span></td><td><a class="link-action" href="06-kartochka-garantii.html">Открыть</a> <a class="link-action" href="08-izmenit-garantiyu.html">Изменить</a></td></tr>
+              <tr class="click-row" data-href="06-kartochka-garantii.html"><td>05.04.2026</td><td>RDBG-24017</td><td>АО «Горизонт»</td><td>Заявка</td><td>В рамках линии</td><td class="sum">6 100 000,00 ₽</td><td><span class="badge orange">На подпись</span></td><td><a class="link-action" href="07-dokumenty-podpis.html">Подписать</a> <a class="link-action" href="06-kartochka-garantii.html">Открыть</a></td></tr>
+              <tr class="click-row" data-href="06-kartochka-garantii.html"><td>02.04.2026</td><td>RDBG-23988</td><td>ПАО «Лидер»</td><td>Заявка</td><td>Единоразовая</td><td class="sum">100 500,00 ₽</td><td><span class="badge red">Требуются документы</span></td><td><a class="link-action" href="06-kartochka-garantii.html">Продолжить</a></td></tr>
+              <tr class="click-row" data-href="04b-liniya-form.html"><td>28.03.2026</td><td>RDBG-23941</td><td>ООО «ТК Контур»</td><td>Черновик</td><td>Упрощённая</td><td class="sum">1 800 000,00 ₽</td><td><span class="badge gray">Черновик</span></td><td><a class="link-action" href="04b-liniya-form.html">Продолжить</a></td></tr>
             </tbody>
           </table>
         </section>
