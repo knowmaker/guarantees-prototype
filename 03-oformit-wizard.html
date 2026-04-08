@@ -29,7 +29,8 @@
         <section class="section wizard" data-wizard>
 
           <article class="wizard-step" data-choice-scope>
-            <h4 class="step-title">Выберите вид банковской гарантии</h4>
+            <h4 class="step-title">Вид банковской гарантии</h4>
+            <div class="muted small mb-0">Можно выбрать несколько видов гарантии.</div>
             <div class="choice-grid">
               <button class="choice selected" data-key="guaranteeType" data-choice="Тендерная гарантия">Тендерная гарантия</button>
               <button class="choice" data-key="guaranteeType" data-choice="Гарантия возврата аванса">Гарантия возврата аванса</button>
@@ -43,6 +44,17 @@
               <button class="choice" data-key="guaranteeType" data-choice="Арендная гарантия">Арендная гарантия</button>
               <button class="choice" data-key="guaranteeType" data-choice="Гарантия уплаты экологического сбора">Гарантия уплаты экологического сбора</button>
             </div>
+          </article>
+
+          <article class="wizard-step">
+            <h4 class="step-title" data-amount-step-title>Сумма гарантии</h4>
+            <div class="field-grid one">
+              <div class="field">
+                <label data-amount-label>Введите сумму, ₽</label>
+                <input value="100 000 000,00" data-amount-input />
+              </div>
+            </div>
+            <p class="small muted mt-8 mb-0 is-hidden" data-amount-hint>Для выбранных видов гарантии укажите общий лимит.</p>
           </article>
 
           <article class="wizard-step is-hidden" data-choice-scope data-ordinary-step>
@@ -61,16 +73,6 @@
               <button class="choice" data-key="ordinaryFormat" data-choice="Единоразовая гарантия">Единоразовая гарантия</button>
             </div>
           </article>
-
-          <div class="mt-12">
-            <div class="card soft">
-              <div class="muted">Выбранный вид гарантии</div>
-              <strong data-selected-type>Тендерная гарантия</strong>
-              <div class="mt-8">
-                <span class="badge green" data-route-badge>Упрощённая</span>
-              </div>
-            </div>
-          </div>
 
           <div class="row between mt-16">
             <a class="btn btn-red" data-route-link href="04b-liniya-form.html?mode=simplified">Продолжить</a>

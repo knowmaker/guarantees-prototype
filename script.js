@@ -227,17 +227,20 @@
     const guaranteeMatrix = getGuaranteeMatrix();
     const defaultType = 'Тендерная гарантия';
     const state = {
-      guaranteeType: defaultType,
+      guaranteeTypes: [defaultType],
       ordinaryFormat: 'В рамках гарантийной линии'
     };
 
     const routeText = document.querySelector('[data-route-text]');
     const routeHint = document.querySelector('[data-route-hint]');
     const routeLink = document.querySelector('[data-route-link]');
-    const selectedType = document.querySelector('[data-selected-type]');
     const routeBadge = document.querySelector('[data-route-badge]');
     const routeSystemHint = document.querySelector('[data-route-system-hint]');
     const ordinaryStep = document.querySelector('[data-ordinary-step]');
+    const amountStepTitle = document.querySelector('[data-amount-step-title]');
+    const amountLabel = document.querySelector('[data-amount-label]');
+    const amountInput = document.querySelector('[data-amount-input]');
+    const amountHint = document.querySelector('[data-amount-hint]');
 
     const storageTypeKey = 'guaranteeWizardType';
     const storageRouteKey = 'guaranteeWizardRoute';
@@ -245,7 +248,7 @@
 
     function persistSelection(routeKind) {
       try {
-        window.localStorage.setItem(storageTypeKey, state.guaranteeType);
+        window.localStorage.setItem(storageTypeKey, state.guaranteeTypes[0] || defaultType);
         window.localStorage.setItem(storageRouteKey, routeKind);
         window.localStorage.setItem(storageFormatKey, state.ordinaryFormat);
       } catch (_) {
@@ -254,8 +257,33 @@
     }
 
     function computeRoute() {
-      const selected = guaranteeMatrix[state.guaranteeType] || guaranteeMatrix[defaultType];
-      if (selected.simplified) {
+      const selectedTypes = state.guaranteeTypes.length ? state.guaranteeTypes : [defaultType];
+      const selectedConfigs = selectedTypes.map((type) => guaranteeMatrix[type] || guaranteeMatrix[defaultType]);
+      const hasOrdinaryType = selectedTypes.some((type) => {
+        const cfg = guaranteeMatrix[type] || guaranteeMatrix[defaultType];
+        return !cfg.simplified;
+      });
+      const allSelectedOrdinary = selectedConfigs.every((cfg) => !cfg.simplified);
+      const requiresLimitFlow = selectedTypes.length >= 2 && allSelectedOrdinary;
+
+      if (requiresLimitFlow) {
+        return {
+          text: 'Тип оформления: Обычная — в рамках линии',
+          hint: '',
+          href: '04b-liniya-form.html?mode=line',
+          routeKind: 'ordinary',
+          showOrdinaryStep: false,
+          badgeClass: 'orange',
+          badgeText: 'Обычная',
+          systemHint: '',
+          amountStepTitle: 'Гарантийный лимит',
+          amountLabel: 'Введите лимит, ₽',
+          amountValue: '300 000 000,00',
+          showAmountHint: true
+        };
+      }
+
+      if (!hasOrdinaryType) {
         return {
           text: 'Тип оформления: Упрощённая гарантия',
           hint: '',
@@ -264,7 +292,11 @@
           showOrdinaryStep: false,
           badgeClass: 'green',
           badgeText: 'Упрощённая',
-          systemHint: ''
+          systemHint: '',
+          amountStepTitle: 'Сумма гарантии',
+          amountLabel: 'Введите сумму, ₽',
+          amountValue: '100 000 000,00',
+          showAmountHint: false
         };
       }
 
@@ -277,7 +309,11 @@
           showOrdinaryStep: true,
           badgeClass: 'orange',
           badgeText: 'Обычная',
-          systemHint: ''
+          systemHint: '',
+          amountStepTitle: 'Сумма гарантии',
+          amountLabel: 'Введите сумму, ₽',
+          amountValue: '100 000 000,00',
+          showAmountHint: false
         };
       }
 
@@ -289,7 +325,11 @@
         showOrdinaryStep: true,
         badgeClass: 'orange',
         badgeText: 'Обычная',
-        systemHint: ''
+        systemHint: '',
+        amountStepTitle: 'Сумма гарантии',
+        amountLabel: 'Введите сумму, ₽',
+        amountValue: '100 000 000,00',
+        showAmountHint: false
       };
     }
 
@@ -298,7 +338,6 @@
       if (routeText) routeText.textContent = route.text;
       if (routeHint) routeHint.textContent = route.hint;
       if (routeLink) routeLink.setAttribute('href', route.href);
-      if (selectedType) selectedType.textContent = state.guaranteeType;
       if (routeSystemHint) routeSystemHint.textContent = route.systemHint;
       if (routeBadge) {
         routeBadge.textContent = route.badgeText;
@@ -308,6 +347,10 @@
       if (ordinaryStep) {
         ordinaryStep.classList.toggle('is-hidden', !route.showOrdinaryStep);
       }
+      if (amountStepTitle) amountStepTitle.textContent = route.amountStepTitle || 'Сумма гарантии';
+      if (amountLabel) amountLabel.textContent = route.amountLabel || 'Введите сумму, ₽';
+      if (amountInput && route.amountValue) amountInput.value = route.amountValue;
+      if (amountHint) amountHint.classList.toggle('is-hidden', !route.showAmountHint);
       persistSelection(route.routeKind);
     }
 
@@ -319,12 +362,32 @@
       const value = btn.getAttribute('data-choice');
       if (!key || !value) return;
 
-      state[key] = value;
+      if (key === 'guaranteeType') {
+        const wasSelected = btn.classList.contains('selected');
+        if (wasSelected) {
+          if (state.guaranteeTypes.length > 1) {
+            state.guaranteeTypes = state.guaranteeTypes.filter((item) => item !== value);
+          }
+        } else {
+          state.guaranteeTypes = Array.from(new Set([...state.guaranteeTypes, value]));
+        }
+      } else {
+        state[key] = value;
+      }
+
       const scope = btn.closest('[data-choice-scope]');
-      if (scope) {
+      if (scope && key !== 'guaranteeType') {
         scope.querySelectorAll('[data-choice]').forEach((el) => el.classList.remove('selected'));
       }
-      btn.classList.add('selected');
+      if (scope && key === 'guaranteeType') {
+        scope.querySelectorAll('[data-choice][data-key="guaranteeType"]').forEach((el) => {
+          const choiceValue = el.getAttribute('data-choice');
+          el.classList.toggle('selected', state.guaranteeTypes.includes(choiceValue));
+        });
+      }
+      if (key !== 'guaranteeType') {
+        btn.classList.add('selected');
+      }
       renderRoute();
     });
 
@@ -334,6 +397,14 @@
       const route = computeRoute();
       persistSelection(route.routeKind);
     });
+
+    const selectedTypeButtons = Array.from(wizard.querySelectorAll('[data-choice][data-key="guaranteeType"].selected'));
+    const selectedTypes = selectedTypeButtons
+      .map((btn) => btn.getAttribute('data-choice'))
+      .filter(Boolean);
+    if (selectedTypes.length) {
+      state.guaranteeTypes = Array.from(new Set(selectedTypes));
+    }
 
     renderRoute();
   }
