@@ -943,7 +943,8 @@
   }
 
   function setupDesktopOnlyNotice() {
-    const noticeId = 'mobile-desktop-notice';
+    const noticeId = 'mobile-compat-notice';
+    let dismissed = false;
 
     function isMobileView() {
       const ua = navigator.userAgent || '';
@@ -954,24 +955,33 @@
 
     function render() {
       const existing = document.getElementById(noticeId);
-      if (isMobileView()) {
-        document.body.classList.add('mobile-desktop-locked');
-        if (existing) return;
-        const notice = document.createElement('div');
-        notice.id = noticeId;
-        notice.className = 'mobile-desktop-notice';
-        notice.innerHTML = [
-          '<div class="mobile-desktop-notice-card">',
-          '<h2 class="mobile-desktop-notice-title">Просмотр ограничен на мобильном устройстве</h2>',
-          '<p class="mobile-desktop-notice-text">Воспользуйтесь персональным компьютером для просмотра прототипа.</p>',
-          '</div>'
-        ].join('');
-        document.body.appendChild(notice);
+      if (!isMobileView()) {
+        if (existing) existing.remove();
         return;
       }
 
-      document.body.classList.remove('mobile-desktop-locked');
-      if (existing) existing.remove();
+      if (dismissed || existing) return;
+
+      const notice = document.createElement('aside');
+      notice.id = noticeId;
+      notice.className = 'mobile-compat-notice';
+      notice.innerHTML = [
+        '<div class="mobile-compat-notice-card">',
+        '<div class="mobile-compat-notice-title">Демо-версия для десктопа</div>',
+        '<p class="mobile-compat-notice-text">Шаблон не оптимизирован для мобильных устройств. Для корректного просмотра воспользуйтесь компьютером или ноутбуком.</p>',
+        '<button type="button" class="mobile-compat-notice-close">Скрыть</button>',
+        '</div>'
+      ].join('');
+
+      const closeBtn = notice.querySelector('.mobile-compat-notice-close');
+      if (closeBtn) {
+        closeBtn.addEventListener('click', () => {
+          dismissed = true;
+          notice.remove();
+        });
+      }
+
+      document.body.appendChild(notice);
     }
 
     render();
