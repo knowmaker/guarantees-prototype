@@ -106,6 +106,46 @@
     });
   }
 
+  function lockFormControlsForDemo() {
+    const readOnlyInputTypes = new Set([
+      '',
+      'text',
+      'search',
+      'number',
+      'email',
+      'tel',
+      'url',
+      'password',
+      'date',
+      'time',
+      'month',
+      'week',
+      'datetime-local'
+    ]);
+
+    document.querySelectorAll('input').forEach((input) => {
+      const type = (input.getAttribute('type') || '').toLowerCase();
+      if (type === 'hidden') return;
+      if (readOnlyInputTypes.has(type)) {
+        input.readOnly = true;
+      }
+      input.classList.add('field-locked');
+      input.setAttribute('aria-disabled', 'true');
+      input.tabIndex = -1;
+    });
+
+    document.querySelectorAll('select').forEach((select) => {
+      const enabledOptions = Array.from(select.options).filter((option) => !option.disabled);
+      const nonEmptyOptions = enabledOptions.filter((option) => String(option.value || '').trim() !== '');
+      const choiceCount = nonEmptyOptions.length || enabledOptions.length;
+      if (choiceCount > 1) return;
+
+      select.classList.add('field-locked');
+      select.setAttribute('aria-disabled', 'true');
+      select.tabIndex = -1;
+    });
+  }
+
   function setupDemoHints() {
     document.querySelectorAll('[data-demo-close], [data-hint-close], [data-demo-source-close]').forEach((btn) => {
       btn.addEventListener('click', (e) => {
@@ -984,6 +1024,7 @@
   setupCardLinks();
   setupPillLinks();
   setupToggleGroups();
+  lockFormControlsForDemo();
   setupDemoSourcePlaque();
   setupDemoHints();
   setupWizard();
