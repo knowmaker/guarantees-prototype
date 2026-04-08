@@ -1818,3 +1818,29 @@ body.mobile-desktop-locked > *:not(#mobile-desktop-notice) {
   }
 }
 
+.aft-result-card {
+  width: 100%;
+  border: 1px solid #dbe3ef;
+  background: #f8fbff;
+}
+
+.aft-result-head {
+  display: flex;
+  align-items: center;
+}
+
+.aft-result-card h3 {
+  margin: 0;
+}
+
+.aft-result-warn {
+  border-color: #ef3124;
+  background: #fff6f5;
+}
+
+.aft-result-success {
+  border-color: #b8e0c5;
+  background: #f3fcf6;
+}
+
+
