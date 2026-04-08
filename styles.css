@@ -829,6 +829,69 @@ h3 {
   font-size: 20px;
 }
 
+.step-title-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 10px;
+  margin-bottom: 12px;
+}
+
+.step-title-row .step-title {
+  margin: 0;
+}
+
+.step-info {
+  position: relative;
+  flex: 0 0 auto;
+}
+
+.step-info > summary {
+  list-style: none;
+  width: 24px;
+  height: 24px;
+  border-radius: 999px;
+  border: 1px solid #b8c1d0;
+  background: #f3f5f9;
+  color: #4c5563;
+  font-size: 14px;
+  font-weight: 700;
+  line-height: 1;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+}
+
+.step-info > summary::-webkit-details-marker {
+  display: none;
+}
+
+.step-info-popover {
+  position: absolute;
+  right: 0;
+  top: calc(100% + 8px);
+  width: 360px;
+  max-width: min(360px, calc(100vw - 48px));
+  border: 1px solid #d8dee9;
+  border-radius: 10px;
+  background: #fff;
+  box-shadow: 0 10px 22px rgba(33, 39, 50, 0.18);
+  padding: 10px 12px;
+  z-index: 40;
+}
+
+.step-info-popover p {
+  margin: 0;
+  font-size: 13px;
+  line-height: 1.4;
+  color: #4f5866;
+}
+
+.step-info-popover p + p {
+  margin-top: 8px;
+}
+
 .choice-grid {
   display: flex;
   flex-wrap: wrap;

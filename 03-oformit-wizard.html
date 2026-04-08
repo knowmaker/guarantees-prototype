@@ -46,7 +46,16 @@
           </article>
 
           <article class="wizard-step is-hidden" data-choice-scope data-ordinary-step>
-            <h4 class="step-title">Формат оформления</h4>
+            <div class="step-title-row">
+              <h4 class="step-title">Формат оформления</h4>
+              <details class="step-info">
+                <summary aria-label="Пояснение по формату">i</summary>
+                <div class="step-info-popover">
+                  <p><strong>Единоразовая гарантия</strong> — оформляется под одну сделку или один контракт.</p>
+                  <p><strong>В рамках гарантийной линии</strong> — оформляется в пределах общего лимита для регулярных выпусков.</p>
+                </div>
+              </details>
+            </div>
             <div class="choice-grid">
               <button class="choice selected" data-key="ordinaryFormat" data-choice="В рамках гарантийной линии">В рамках гарантийной линии</button>
               <button class="choice" data-key="ordinaryFormat" data-choice="Единоразовая гарантия">Единоразовая гарантия</button>
