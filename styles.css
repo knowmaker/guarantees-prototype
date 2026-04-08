@@ -1082,6 +1082,12 @@ h3 {
   white-space: nowrap;
 }
 
+/* Temporary switch: hide "КЛИК" badges but keep all interactions working */
+.interactive-marker::after,
+.click-row td:first-child::before {
+  display: none !important;
+}
+
 .proto-click-note {
   border: 1px solid #d7dce5;
   background: #f8f9fb;
