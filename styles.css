@@ -504,12 +504,23 @@ h3 {
 
 .table td button.btn {
   cursor: default;
-  pointer-events: none;
 }
 
 .table td .btn:last-child,
 .table td .link-action:last-child {
   margin-right: 0;
+}
+
+.table td .action-repeat {
+  width: 28px;
+  min-width: 28px;
+  height: 28px;
+  min-height: 28px;
+  padding: 0;
+  border-radius: 999px;
+  font-size: 15px;
+  font-weight: 700;
+  line-height: 1;
 }
 
 .quick-actions {
@@ -569,6 +580,30 @@ h3 {
 .service-card h4 {
   margin: 0 0 10px;
   font-size: 23px;
+}
+
+.service-card-guarantees {
+  background: #e9f7ee;
+  border-color: #bfe4cb;
+}
+
+.service-card-guarantees h4 {
+  color: #1f5c35;
+}
+
+.service-card-guarantees .service-guarantee-row {
+  align-items: flex-start;
+  flex-wrap: nowrap;
+  gap: 10px;
+}
+
+.service-card-guarantees .service-guarantee-row .service-item {
+  max-width: calc(100% - 74px);
+}
+
+.service-card-guarantees .service-guarantee-row .badge {
+  margin-left: auto;
+  flex: 0 0 auto;
 }
 
 .service-list {
@@ -1083,6 +1118,16 @@ h3 {
 }
 
 /* Temporary switch: hide "КЛИК" badges but keep all interactions working */
+.interactive-marker {
+  outline: none !important;
+  box-shadow: none !important;
+}
+
+.interactive-marker:hover {
+  outline: none !important;
+  box-shadow: none !important;
+}
+
 .interactive-marker::after,
 .click-row td:first-child::before {
   display: none !important;
@@ -1252,3 +1297,4 @@ body.mobile-desktop-locked > *:not(#mobile-desktop-notice) {
     display: none;
   }
 }
+
