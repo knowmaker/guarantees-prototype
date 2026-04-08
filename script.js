@@ -846,6 +846,8 @@
     const docEl = page.querySelector('[data-sign-doc-title]');
     const objectEl = page.querySelector('[data-sign-object]');
     const cardLinkEl = page.querySelector('[data-sign-card-link]');
+    const submitLinkEl = page.querySelector('[data-sign-submit-link]');
+    const successHref = `07c-podpis-success.html?item=${encodeURIComponent(item)}&doc=${encodeURIComponent(doc)}&program=${encodeURIComponent(program)}&kind=${encodeURIComponent(kind)}`;
 
     if (crumbEl) crumbEl.textContent = `Подписание ${item}`;
     if (titleEl) titleEl.textContent = `Подписание документа ${item}`;
@@ -857,7 +859,47 @@
     if (docEl) docEl.textContent = doc;
     if (objectEl) objectEl.textContent = `Связанный объект: ${objectTitle}`;
     if (cardLinkEl) cardLinkEl.setAttribute('href', cardHref);
+    if (submitLinkEl) submitLinkEl.setAttribute('href', successHref);
     document.title = `Подписание документа ${item}`;
+  }
+
+  function setupSignSuccessContext() {
+    const page = document.querySelector('[data-sign-success]');
+    if (!page) return;
+
+    const params = new URLSearchParams(window.location.search || '');
+    const item = params.get('item') || 'RDBG-24017';
+    const kind = (params.get('kind') || 'request').toLowerCase();
+    const doc = params.get('doc') || 'Заявление на гарантию.docx';
+    const program = (params.get('program') || 'single').toLowerCase();
+
+    const objectTitle = `${kind === 'guarantee' ? 'Гарантия' : 'Заявка'} №${item}`;
+    const cardHref = `06-kartochka-garantii.html?item=${encodeURIComponent(item)}&kind=${encodeURIComponent(kind)}&program=${encodeURIComponent(program)}&status=sign`;
+
+    const crumbEl = page.querySelector('[data-success-crumb]');
+    const titleEl = page.querySelector('[data-success-title]');
+    const subtitleEl = page.querySelector('[data-success-subtitle]');
+    const objectEl = page.querySelector('[data-success-object]');
+    const cardLinkEl = page.querySelector('[data-success-card-link]');
+    const crosssellEl = page.querySelector('[data-success-crosssell]');
+    const rowEl = page.querySelector('[data-success-row]');
+    const lineLinkEl = page.querySelector('[data-success-line-link]');
+
+    if (crumbEl) crumbEl.textContent = `Подписание ${item}`;
+    if (titleEl) titleEl.textContent = 'Документы подписаны';
+    if (subtitleEl) subtitleEl.textContent = `Документ «${doc}» успешно подписан и отправлен в банк.`;
+    if (objectEl) objectEl.textContent = `Объект: ${objectTitle}`;
+    if (cardLinkEl) cardLinkEl.setAttribute('href', cardHref);
+    if (lineLinkEl) lineLinkEl.setAttribute('href', '04b-liniya-form.html?mode=line');
+
+    if (crosssellEl) {
+      crosssellEl.classList.toggle('is-hidden', program !== 'single');
+    }
+    if (rowEl) {
+      rowEl.classList.toggle('success-row-two', program === 'single');
+    }
+
+    document.title = `Подписание завершено ${item}`;
   }
 
   function setupDesktopOnlyNotice() {
@@ -951,6 +993,7 @@
   setupIncomingGuaranteeCardContext();
   setupChangeFormContext();
   setupSignStepContext();
+  setupSignSuccessContext();
   setupDesktopOnlyNotice();
   setupServiceGridCompaction();
   markInteractive();
