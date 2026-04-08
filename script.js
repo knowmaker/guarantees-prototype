@@ -952,7 +952,7 @@
       if (window.matchMedia('(max-width: 1280px)').matches) return;
 
       const styles = window.getComputedStyle(grid);
-      const rowHeight = parseFloat(styles.getPropertyValue('grid-auto-rows')) || 8;
+      const rowHeight = parseFloat(styles.getPropertyValue('grid-auto-rows')) || 2;
       const rowGap = parseFloat(styles.getPropertyValue('row-gap')) || 14;
 
       cards.forEach((card) => {
